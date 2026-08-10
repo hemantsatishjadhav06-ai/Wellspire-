@@ -13,6 +13,12 @@ persistent once you connect Supabase.
 > **Data mode banner:** the app shows _Demo_ until `SUPABASE_URL` +
 > `SUPABASE_SERVICE_ROLE_KEY` are set, then switches to _Live_.
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/hemantsatishjadhav06-ai/Wellspire-/tree/claude/wellspire-school-tooling-system-lxl5f6)
+
+> One click reads `render.yaml` and provisions the web service. Fill in the
+> Supabase / OpenRouter secrets when prompted. A Dockerfile is also included for
+> Railway, Fly.io, Cloud Run or any container host.
+
 ---
 
 ## ✨ Features
@@ -31,6 +37,20 @@ persistent once you connect Supabase.
 | **Automations** | Control panel to inspect & trigger scheduled jobs. |
 | **AI Copilot** | Chat assistant grounded in your live school data (OpenRouter). |
 | **Settings** | Integration status + go-live checklist. |
+
+### 🔑 Authentication & roles
+
+- **Supabase Auth** email/password sign-in. The **first account becomes the
+  administrator** automatically (`handle_new_user` trigger in
+  `supabase/migrations/0005_auth.sql`); everyone else defaults to `parent`.
+- Eight roles — `admin, principal, teacher, parent, student, librarian,
+  accountant, staff` — drive both the **navigation** (each role sees only its
+  modules) and the **API** (reads require a session; writes require a staff
+  role; AI chat and the notifications feed are open to any signed-in user).
+- Promote anyone from the SQL editor:
+  `select set_user_role('teacher@wellspire.school','teacher');`
+- **Demo mode** (no Supabase) skips login: pick a role on the landing page to
+  explore. The role-switcher in the top bar previews any role instantly.
 
 ### 🤖 The three automations
 

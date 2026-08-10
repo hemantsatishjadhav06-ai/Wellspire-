@@ -8,7 +8,7 @@ import path from 'node:path';
 import fs from 'node:fs';
 import config from './config.js';
 import api from './routes/index.js';
-import { attachUser, notFound, errorHandler } from './middleware/index.js';
+import { attachProfile, notFound, errorHandler } from './middleware/index.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const webDist = path.resolve(__dirname, '../../web/dist');
@@ -19,7 +19,7 @@ export function createApp() {
   app.use(cors());
   app.use(express.json({ limit: '2mb' }));
   app.use(morgan(config.isProd ? 'combined' : 'dev'));
-  app.use(attachUser);
+  app.use(attachProfile);
 
   // API
   app.use('/api', api);

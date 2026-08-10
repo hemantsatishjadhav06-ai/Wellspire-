@@ -9,6 +9,7 @@ import {
 import api from '../lib/api.js';
 import { inr, num, dateFmt } from '../lib/format.js';
 import { Card, Spinner, ErrorNote, Badge, useAsync, EmptyState } from '../components/ui.jsx';
+import { useAuth } from '../lib/auth.jsx';
 
 const STAT_ICONS = { students: Users, teachers: GraduationCap, fees: Wallet, classes: School };
 
@@ -30,7 +31,9 @@ function StatCard({ icon: Icon, label, value, tint, sub }) {
 }
 
 export default function Dashboard() {
+  const { profile } = useAuth();
   const { loading, data, error } = useAsync(() => api.get('/dashboard'), []);
+  const firstName = (profile?.full_name || '').split(' ')[0];
 
   if (loading) return <Spinner label="Loading dashboard…" />;
   if (error) return <ErrorNote error={error} />;
@@ -50,7 +53,7 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Good day 👋</h1>
+        <h1 className="text-2xl font-bold text-slate-900">Good day{firstName ? `, ${firstName}` : ''} 👋</h1>
         <p className="text-sm text-slate-500 mt-1">Here's what's happening at Wellspire International School today.</p>
       </div>
 

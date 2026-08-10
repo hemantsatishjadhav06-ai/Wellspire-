@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { Loader2 } from 'lucide-react';
 import Layout from './components/Layout.jsx';
+import Login from './pages/Login.jsx';
 import api from './lib/api.js';
+import { useAuth } from './lib/auth.jsx';
 
 import Dashboard from './pages/Dashboard.jsx';
 import Students from './pages/Students.jsx';
@@ -17,16 +20,25 @@ import Assistant from './pages/Assistant.jsx';
 import Settings from './pages/Settings.jsx';
 
 export default function App() {
-  const [role, setRole] = useState(() => localStorage.getItem('wellspire.role') || 'admin');
+  const { ready, authenticated } = useAuth();
   const [mode, setMode] = useState('demo');
 
-  useEffect(() => localStorage.setItem('wellspire.role', role), [role]);
   useEffect(() => {
-    api.get('/status').then((s) => setMode(s.mode)).catch(() => {});
-  }, []);
+    if (authenticated) api.get('/status').then((s) => setMode(s.mode)).catch(() => {});
+  }, [authenticated]);
+
+  if (!ready) {
+    return (
+      <div className="grid min-h-screen place-items-center bg-slate-50">
+        <Loader2 className="h-6 w-6 animate-spin text-brand-500" />
+      </div>
+    );
+  }
+
+  if (!authenticated) return <Login />;
 
   return (
-    <Layout role={role} setRole={setRole} mode={mode}>
+    <Layout mode={mode}>
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/students" element={<Students />} />

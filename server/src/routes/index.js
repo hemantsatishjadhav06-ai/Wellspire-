@@ -5,7 +5,9 @@ import db from '../lib/db.js';
 import openrouter from '../lib/openrouter.js';
 import config from '../config.js';
 import { crudRouter } from './crud.js';
+import { requireAuth, requireStaff } from '../middleware/index.js';
 
+import auth from './auth.js';
 import students from './students.js';
 import timetable from './timetable.js';
 import fees from './fees.js';
@@ -31,6 +33,24 @@ api.get('/status', (_req, res) => {
       automations: config.automations.enabled,
     },
     school_id: config.defaultSchoolId,
+  });
+});
+
+// --- auth (unguarded) -----------------------------------------------------
+api.use('/auth', auth);
+
+// --- access control -------------------------------------------------------
+// Everything below requires an authenticated caller (auto-passes in demo mode).
+// Mutations additionally require a staff role. Read-only + AI chat + the
+// notifications feed are exempt from the staff requirement.
+const STAFF_EXEMPT = ['/ai', '/notifications'];
+api.use((req, res, next) => {
+  requireAuth(req, res, (err) => {
+    if (err) return next(err);
+    const isWrite = ['POST', 'PATCH', 'PUT', 'DELETE'].includes(req.method);
+    const exempt = STAFF_EXEMPT.some((p) => req.path.startsWith(p));
+    if (isWrite && !exempt) return requireStaff(req, res, next);
+    next();
   });
 });
 

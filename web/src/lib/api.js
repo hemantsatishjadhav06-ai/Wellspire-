@@ -1,4 +1,6 @@
 // Thin fetch wrapper around the Wellspire API.
+import { getToken, getDemoRole } from './session.js';
+
 const BASE = import.meta.env.VITE_API_BASE || '/api';
 
 async function request(path, { method = 'GET', body, params } = {}) {
@@ -9,9 +11,14 @@ async function request(path, { method = 'GET', body, params } = {}) {
     ).toString();
     if (qs) url += `?${qs}`;
   }
+  const headers = {};
+  if (body) headers['Content-Type'] = 'application/json';
+  const token = getToken();
+  if (token) headers.Authorization = `Bearer ${token}`;
+  else headers['X-Demo-Role'] = getDemoRole(); // ignored by server in live mode
   const res = await fetch(url, {
     method,
-    headers: body ? { 'Content-Type': 'application/json' } : undefined,
+    headers,
     body: body ? JSON.stringify(body) : undefined,
   });
   const text = await res.text();
