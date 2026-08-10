@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "claude/**"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-smoke:
+    name: Build & smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Smoke test API (demo mode)
+        env:
+          ENABLE_AUTOMATIONS: "false"
+          PORT: "8080"
+        run: |
+          node server/src/index.js &
+          SERVER_PID=$!
+          trap "kill $SERVER_PID 2>/dev/null || true" EXIT
+
+          # Wait for the server to come up
+          for i in $(seq 1 20); do
+            if curl -sf http://localhost:8080/api/health > /dev/null; then echo "✓ server up"; break; fi
+            sleep 1
+          done
+
+          echo "Checking endpoints…"
+          curl -sf http://localhost:8080/api/health       > /dev/null || { echo "✗ /api/health";    exit 1; }
+          curl -sf http://localhost:8080/api/status       > /dev/null || { echo "✗ /api/status";    exit 1; }
+          curl -sf http://localhost:8080/api/dashboard    > /dev/null || { echo "✗ /api/dashboard"; exit 1; }
+          curl -sf http://localhost:8080/api/students     > /dev/null || { echo "✗ /api/students";  exit 1; }
+          curl -sf -X POST http://localhost:8080/api/timetable/generate \
+            -H "Content-Type: application/json" -d '{"class_ids":["cls-5a"]}' > /dev/null \
+            || { echo "✗ /api/timetable/generate"; exit 1; }
+          curl -sf -X POST "http://localhost:8080/api/fees/reminders/run?dry=1" > /dev/null \
+            || { echo "✗ /api/fees/reminders/run"; exit 1; }
+
+          echo "✓ All smoke tests passed"
+
+  deploy:
+    name: Deploy to Render
+    needs: build-and-smoke
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render deploy (if hook configured)
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          if [ -n "$HOOK" ]; then
+            echo "Triggering Render deploy…"
+            curl -sf -X POST "$HOOK" && echo "✓ Render deploy triggered"
+          else
+            echo "ℹ RENDER_DEPLOY_HOOK secret not set — skipping auto-deploy."
+            echo "  Add it in repo Settings → Secrets and variables → Actions to enable push-to-deploy."
+          fi

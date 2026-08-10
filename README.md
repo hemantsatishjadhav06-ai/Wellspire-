@@ -1,5 +1,7 @@
 # 🏫 Wellspire SMS — School Management System
 
+[![CI](https://github.com/hemantsatishjadhav06-ai/Wellspire-/actions/workflows/ci.yml/badge.svg)](https://github.com/hemantsatishjadhav06-ai/Wellspire-/actions/workflows/ci.yml)
+
 An all-in-one **internal tooling platform** for schools: students, parents,
 teachers, classes, timetable, attendance, **fees**, **library**, **inventory**,
 notifications and audit — with **AI automations** for fee reminders, teacher
@@ -13,7 +15,7 @@ persistent once you connect Supabase.
 > **Data mode banner:** the app shows _Demo_ until `SUPABASE_URL` +
 > `SUPABASE_SERVICE_ROLE_KEY` are set, then switches to _Live_.
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/hemantsatishjadhav06-ai/Wellspire-/tree/claude/wellspire-school-tooling-system-lxl5f6)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/hemantsatishjadhav06-ai/Wellspire-)
 
 > One click reads `render.yaml` and provisions the web service. Fill in the
 > Supabase / OpenRouter secrets when prompted. A Dockerfile is also included for
