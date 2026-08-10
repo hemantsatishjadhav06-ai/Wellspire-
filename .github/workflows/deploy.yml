@@ -1,0 +1,152 @@
+name: Deploy (one-click)
+
+# Manual "Run workflow" button in the Actions tab. It creates (or re-deploys)
+# the Render web service straight from this repo, waits for it to come up, and
+# prints the live URL into the run summary — no dashboard needed.
+#
+# Prerequisite (one-time): add a RENDER_API_KEY secret
+#   Render → Account Settings → API Keys → Create key
+#   GitHub → repo Settings → Secrets and variables → Actions → New secret
+# Optional secrets (app runs in demo mode without them, then upgrades to live):
+#   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, SUPABASE_ANON_KEY,
+#   OPENROUTER_API_KEY, OPENROUTER_MODEL, VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: Branch to deploy
+        required: true
+        default: main
+      region:
+        description: Render region
+        required: true
+        default: oregon
+        type: choice
+        options: [oregon, ohio, virginia, frankfurt, singapore]
+      plan:
+        description: Render instance plan
+        required: true
+        default: free
+        type: choice
+        options: [free, starter, standard]
+
+concurrency:
+  group: render-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy & publish link
+    runs-on: ubuntu-latest
+    env:
+      RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+      SERVICE_NAME: wellspire-sms
+      REPO_URL: https://github.com/${{ github.repository }}
+      BRANCH: ${{ github.event.inputs.branch }}
+      REGION: ${{ github.event.inputs.region }}
+      PLAN: ${{ github.event.inputs.plan }}
+      # Optional app secrets — only forwarded when present
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      OPENROUTER_MODEL: ${{ secrets.OPENROUTER_MODEL }}
+      VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+      VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+    steps:
+      - name: Check for Render API key
+        run: |
+          if [ -z "$RENDER_API_KEY" ]; then
+            echo "::error::RENDER_API_KEY secret is not set."
+            {
+              echo "## ⚠️ Missing RENDER_API_KEY"
+              echo ""
+              echo "1. Create one at **Render → Account Settings → API Keys**."
+              echo "2. Add it at **repo Settings → Secrets and variables → Actions** as \`RENDER_API_KEY\`."
+              echo "3. Re-run this workflow."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+      - name: Create or update the Render service
+        run: |
+          set -o pipefail
+          API=https://api.render.com/v1
+          AUTH="Authorization: Bearer $RENDER_API_KEY"
+
+          echo "→ Resolving Render owner…"
+          owners=$(curl -s -H "$AUTH" "$API/owners?limit=1")
+          owner=$(echo "$owners" | jq -r '.[0].owner.id // empty')
+          if [ -z "$owner" ]; then echo "Failed to resolve owner:"; echo "$owners"; exit 1; fi
+          echo "  owner=$owner"
+
+          # Assemble env vars from whatever secrets are present.
+          envjson=$(jq -n '[
+            {key:"NODE_ENV",value:"production"},
+            {key:"NODE_VERSION",value:"20"},
+            {key:"ENABLE_AUTOMATIONS",value:"true"},
+            {key:"SCHOOL_TIMEZONE",value:"Asia/Kolkata"},
+            {key:"VITE_API_BASE",value:"/api"}
+          ]')
+          add() { if [ -n "$2" ]; then envjson=$(echo "$envjson" | jq --arg k "$1" --arg v "$2" '. += [{key:$k,value:$v}]'); fi; }
+          add SUPABASE_URL "$SUPABASE_URL"
+          add SUPABASE_ANON_KEY "$SUPABASE_ANON_KEY"
+          add SUPABASE_SERVICE_ROLE_KEY "$SUPABASE_SERVICE_ROLE_KEY"
+          add OPENROUTER_API_KEY "$OPENROUTER_API_KEY"
+          add OPENROUTER_MODEL "${OPENROUTER_MODEL:-anthropic/claude-3.5-sonnet}"
+          add VITE_SUPABASE_URL "$VITE_SUPABASE_URL"
+          add VITE_SUPABASE_ANON_KEY "$VITE_SUPABASE_ANON_KEY"
+
+          echo "→ Looking for an existing '$SERVICE_NAME' service…"
+          found=$(curl -s -H "$AUTH" "$API/services?name=$SERVICE_NAME&limit=1")
+          sid=$(echo "$found" | jq -r '.[0].service.id // empty')
+
+          if [ -z "$sid" ]; then
+            echo "→ Creating service from $REPO_URL@$BRANCH …"
+            payload=$(jq -n \
+              --arg name "$SERVICE_NAME" --arg owner "$owner" --arg repo "$REPO_URL" \
+              --arg branch "$BRANCH" --arg region "$REGION" --arg plan "$PLAN" --argjson envs "$envjson" '{
+                type:"web_service", name:$name, ownerId:$owner, repo:$repo, branch:$branch, autoDeploy:"yes",
+                serviceDetails:{ runtime:"node", region:$region, plan:$plan, healthCheckPath:"/api/health",
+                  envSpecificDetails:{ buildCommand:"npm install && npm run build", startCommand:"npm start" } },
+                envVars:$envs }')
+            resp=$(curl -s -H "$AUTH" -H "Content-Type: application/json" -X POST "$API/services" -d "$payload")
+            sid=$(echo "$resp" | jq -r '.service.id // empty')
+            if [ -z "$sid" ]; then echo "Create failed:"; echo "$resp" | jq . 2>/dev/null || echo "$resp"; exit 1; fi
+            url=$(echo "$resp" | jq -r '.service.serviceDetails.url // empty')
+            echo "  created service $sid"
+          else
+            echo "  found existing service $sid — updating env vars and deploying…"
+            curl -s -H "$AUTH" -H "Content-Type: application/json" -X PUT "$API/services/$sid/env-vars" -d "$envjson" > /dev/null || echo "  (env update skipped)"
+            curl -s -H "$AUTH" -H "Content-Type: application/json" -X POST "$API/services/$sid/deploys" -d '{}' > /dev/null
+            url=$(curl -s -H "$AUTH" "$API/services/$sid" | jq -r '.serviceDetails.url // .service.serviceDetails.url // empty')
+          fi
+
+          [ -z "$url" ] && url="https://$SERVICE_NAME.onrender.com"
+          echo "LIVE_URL=$url" >> "$GITHUB_ENV"
+          echo "SERVICE_ID=$sid" >> "$GITHUB_ENV"
+          echo "→ Service $sid · URL $url"
+
+      - name: Wait for the site to come up
+        run: |
+          echo "Polling $LIVE_URL/api/health (first build can take a few minutes)…"
+          ok=0
+          for i in $(seq 1 40); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "$LIVE_URL/api/health" || echo 000)
+            if [ "$code" = "200" ]; then echo "✓ Live (200)"; ok=1; break; fi
+            echo "  attempt $i/40 → $code (building…)"; sleep 15
+          done
+          {
+            echo "## 🚀 Wellspire deployment"
+            echo ""
+            echo "| | |"
+            echo "|---|---|"
+            echo "| **Live URL** | [$LIVE_URL]($LIVE_URL) |"
+            echo "| **Service ID** | \`$SERVICE_ID\` |"
+            echo "| **Branch** | \`$BRANCH\` · $REGION · $PLAN |"
+            echo "| **Health** | $([ "$ok" = "1" ] && echo 'passing ✅' || echo 'still building — open in a minute ⏳') |"
+            echo ""
+            echo "Add \`SUPABASE_*\` and \`OPENROUTER_API_KEY\` secrets and re-run to switch from demo to live data."
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "::notice title=Wellspire is deploying::$LIVE_URL"

@@ -137,6 +137,21 @@ and **service_role key**.
 3. Set the secret env vars when prompted (see table below).
 4. Deploy. Build runs `npm install && npm run build`; start runs `npm start`.
 
+### 2b. Deploy from a GitHub Actions button (no dashboard)
+Prefer to deploy straight from GitHub and get the link in the run summary?
+
+1. Create a Render API key: **Render → Account Settings → API Keys**.
+2. Add it as a repo secret: **Settings → Secrets and variables → Actions →**
+   `RENDER_API_KEY`. *(Optionally add `SUPABASE_*` / `OPENROUTER_API_KEY` too —
+   otherwise it deploys in demo mode and you can add them later.)*
+3. Go to the **Actions** tab → **Deploy (one-click)** → **Run workflow**.
+
+The workflow (`.github/workflows/deploy.yml`) creates the Render service from
+this repo, forwards whatever secrets are set, waits for health to pass, and
+prints the **live URL** into the run summary. Re-running it re-deploys the same
+service. Pushes to `main` can also auto-deploy — add a `RENDER_DEPLOY_HOOK`
+secret and the CI pipeline triggers it.
+
 ### 3. Environment variables
 
 | Variable | Required | Purpose |
