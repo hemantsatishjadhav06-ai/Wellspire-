@@ -1,0 +1,25 @@
+{
+  "name": "wellspire-sms",
+  "version": "1.0.0",
+  "description": "Wellspire School Management System — an all-in-one internal tooling platform for students, parents, teachers, fees, library, inventory, timetabling and AI automations.",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "server",
+    "web"
+  ],
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "scripts": {
+    "build": "npm run build --workspace web",
+    "start": "node server/src/index.js",
+    "dev:server": "node --watch server/src/index.js",
+    "dev:web": "npm run dev --workspace web",
+    "dev": "concurrently -n server,web -c blue,magenta \"npm:dev:server\" \"npm:dev:web\"",
+    "lint": "echo \"(lint placeholder — wire up eslint here)\" && exit 0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

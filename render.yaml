@@ -1,0 +1,66 @@
+# ============================================================================
+# Render Blueprint for Wellspire SMS
+# ----------------------------------------------------------------------------
+# 1. Push this repo to GitHub.
+# 2. In Render → New → Blueprint → pick this repo.
+# 3. Fill in the environment variables marked `sync: false` (secrets).
+# 4. Deploy. The single web service builds the React app and serves it + the API.
+#
+# Docs: https://render.com/docs/blueprint-spec
+# ============================================================================
+services:
+  - type: web
+    name: wellspire-sms
+    runtime: node
+    plan: free
+    # Install all workspaces, then build the web frontend into web/dist
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "20"
+      # --- Secrets: set these in the Render dashboard (sync:false = not stored in repo) ---
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: OPENROUTER_MODEL
+        value: anthropic/claude-3.5-sonnet
+      - key: APP_URL
+        sync: false
+      - key: ENABLE_AUTOMATIONS
+        value: "true"
+      - key: SCHOOL_TIMEZONE
+        value: Asia/Kolkata
+      - key: FEE_REMINDER_DAYS_BEFORE
+        value: "7"
+      - key: CRON_FEE_REMINDERS
+        value: 0 9 * * *
+      - key: CRON_TEACHER_REMINDERS
+        value: 0 7 * * 1-6
+      # Optional SMTP for email notifications
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: SMTP_FROM
+        value: "Wellspire School <no-reply@wellspire.school>"
+      # Public build-time vars for the Vite frontend
+      - key: VITE_SUPABASE_URL
+        sync: false
+      - key: VITE_SUPABASE_ANON_KEY
+        sync: false
+      - key: VITE_API_BASE
+        value: /api
