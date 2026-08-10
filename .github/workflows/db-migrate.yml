@@ -1,0 +1,76 @@
+name: Set up database
+
+# One-click database setup. Applies the full Wellspire schema (tables, triggers,
+# RLS, seed data, auth wiring) to your Supabase Postgres. Idempotent — safe to
+# re-run after a schema change.
+#
+# Prerequisite (one-time): add a SUPABASE_DB_URL secret
+#   Supabase → Project Settings → Database → Connection string → URI
+#   (looks like postgresql://postgres:PASSWORD@db.<ref>.supabase.co:5432/postgres)
+#   GitHub → repo Settings → Secrets and variables → Actions → New secret
+
+on:
+  workflow_dispatch:
+    inputs:
+      seed:
+        description: Include sample/demo data
+        required: true
+        default: "true"
+        type: choice
+        options: ["true", "false"]
+
+jobs:
+  migrate:
+    name: Apply schema to Supabase
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+      SEED: ${{ github.event.inputs.seed }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check connection string
+        run: |
+          if [ -z "$SUPABASE_DB_URL" ]; then
+            echo "::error::SUPABASE_DB_URL secret is not set."
+            {
+              echo "## ⚠️ Missing SUPABASE_DB_URL"
+              echo ""
+              echo "1. Supabase → **Project Settings → Database → Connection string → URI**."
+              echo "2. Add it at **repo Settings → Secrets and variables → Actions** as \`SUPABASE_DB_URL\`."
+              echo "3. Re-run this workflow."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+      - name: Ensure psql is available
+        run: psql --version || (sudo apt-get update && sudo apt-get install -y postgresql-client)
+
+      - name: Apply schema
+        run: |
+          set -e
+          if [ "$SEED" = "false" ]; then
+            echo "→ Applying schema without seed data…"
+            for f in 0001_core_schema 0002_functions_triggers 0003_rls_policies 0005_auth; do
+              echo "  • $f"
+              psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f "supabase/migrations/$f.sql"
+            done
+          else
+            echo "→ Applying full schema + seed…"
+            psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f supabase/schema.sql
+          fi
+
+      - name: Summarise
+        if: always()
+        run: |
+          {
+            echo "## 🗄️ Database setup"
+            echo ""
+            if [ "${{ job.status }}" = "success" ]; then
+              echo "✅ Schema applied successfully (seed: \`$SEED\`)."
+              echo ""
+              echo "Next: add \`SUPABASE_URL\` + \`SUPABASE_SERVICE_ROLE_KEY\` secrets and run **Deploy (one-click)** — the app will now persist data."
+            else
+              echo "❌ Migration failed — check the step log above."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
