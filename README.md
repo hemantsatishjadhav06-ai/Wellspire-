@@ -152,6 +152,22 @@ prints the **live URL** into the run summary. Re-running it re-deploys the same
 service. Pushes to `main` can also auto-deploy — add a `RENDER_DEPLOY_HOOK`
 secret and the CI pipeline triggers it.
 
+### 3. Turn on persistent data storage (one click)
+By default the app runs on in-memory demo data. To make it **save data for real**:
+
+1. Create a free Supabase project (blank — no manual SQL needed).
+2. Copy **Project Settings → Database → Connection string → URI** and add it as a
+   repo secret `SUPABASE_DB_URL`.
+3. **Actions → "Set up database" → Run workflow.** This applies the entire schema
+   (`supabase/schema.sql` — tables, triggers, RLS, seed, auth) in one shot. Safe
+   to re-run.
+4. Add `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` (Project Settings → API) as
+   secrets, then re-run **Deploy (one-click)**. The banner flips **Demo → Live**
+   and every change now persists in Postgres.
+
+> Prefer manual? Paste `supabase/schema.sql` into the Supabase SQL editor and run
+> it — same result.
+
 ### 3. Environment variables
 
 | Variable | Required | Purpose |
