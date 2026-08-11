@@ -14,7 +14,9 @@ services:
     runtime: node
     plan: free
     # Install all workspaces, then build the web frontend into web/dist
-    buildCommand: npm install && npm run build
+    # --include=dev ensures Vite/Tailwind (devDependencies) install even though
+    # NODE_ENV=production is set, so the frontend build succeeds.
+    buildCommand: npm install --include=dev && npm run build
     startCommand: npm start
     healthCheckPath: /api/health
     autoDeploy: true

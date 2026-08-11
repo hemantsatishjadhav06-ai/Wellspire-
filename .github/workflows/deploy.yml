@@ -109,7 +109,7 @@ jobs:
               --arg branch "$BRANCH" --arg region "$REGION" --arg plan "$PLAN" --argjson envs "$envjson" '{
                 type:"web_service", name:$name, ownerId:$owner, repo:$repo, branch:$branch, autoDeploy:"yes",
                 serviceDetails:{ runtime:"node", region:$region, plan:$plan, healthCheckPath:"/api/health",
-                  envSpecificDetails:{ buildCommand:"npm install && npm run build", startCommand:"npm start" } },
+                  envSpecificDetails:{ buildCommand:"npm install --include=dev && npm run build", startCommand:"npm start" } },
                 envVars:$envs }')
             resp=$(curl -s -H "$AUTH" -H "Content-Type: application/json" -X POST "$API/services" -d "$payload")
             sid=$(echo "$resp" | jq -r '.service.id // empty')
