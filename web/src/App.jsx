@@ -7,6 +7,7 @@ import api from './lib/api.js';
 import { useAuth } from './lib/auth.jsx';
 
 import Dashboard from './pages/Dashboard.jsx';
+import ParentHome from './pages/ParentHome.jsx';
 import Students from './pages/Students.jsx';
 import Teachers from './pages/Teachers.jsx';
 import Classes from './pages/Classes.jsx';
@@ -20,7 +21,7 @@ import Assistant from './pages/Assistant.jsx';
 import Settings from './pages/Settings.jsx';
 
 export default function App() {
-  const { ready, authenticated } = useAuth();
+  const { ready, authenticated, role } = useAuth();
   const [mode, setMode] = useState('demo');
 
   useEffect(() => {
@@ -40,7 +41,7 @@ export default function App() {
   return (
     <Layout mode={mode}>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={role === 'parent' ? <ParentHome /> : <Dashboard />} />
         <Route path="/students" element={<Students />} />
         <Route path="/teachers" element={<Teachers />} />
         <Route path="/classes" element={<Classes />} />
