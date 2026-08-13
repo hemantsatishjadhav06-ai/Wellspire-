@@ -76,8 +76,8 @@ export default function Dashboard() {
             <AreaChart data={collectionData} margin={{ left: -12, right: 8, top: 8 }}>
               <defs>
                 <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#6366f1" stopOpacity={0.35} />
-                  <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#1c7f49" stopOpacity={0.35} />
+                  <stop offset="95%" stopColor="#1c7f49" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#eef2f7" />
@@ -85,7 +85,7 @@ export default function Dashboard() {
               <YAxis tick={{ fontSize: 12, fill: '#94a3b8' }} axisLine={false} tickLine={false} tickFormatter={(v) => `₹${Math.round(v / 1000)}k`} />
               <Tooltip formatter={(v) => inr(v)} contentStyle={{ borderRadius: 12, border: '1px solid #e2e8f0', fontSize: 13 }} />
               <Area type="monotone" dataKey="billed" stroke="#cbd5e1" fill="none" strokeWidth={2} strokeDasharray="4 4" name="Billed" />
-              <Area type="monotone" dataKey="collected" stroke="#6366f1" fill="url(#g1)" strokeWidth={2.5} name="Collected" />
+              <Area type="monotone" dataKey="collected" stroke="#1c7f49" fill="url(#g1)" strokeWidth={2.5} name="Collected" />
             </AreaChart>
           </ResponsiveContainer>
         </Card>

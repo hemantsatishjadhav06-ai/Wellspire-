@@ -9,18 +9,26 @@ const iso = (offsetDays = 0) => new Date(Date.now() + offsetDays * day).toISOStr
 const date = (offsetDays = 0) => iso(offsetDays).slice(0, 10);
 
 export function buildMockData() {
+  const att = (sid, cls, statuses) =>
+    statuses.map((s, i) => ({ id: `att-${sid}-${i}`, school_id: SCHOOL, student_id: sid, class_id: cls, date: date(-(i + 1)), status: s }));
+  const attendanceRecords = [
+    ...att('stu-1', 'cls-5a', ['present', 'present', 'late', 'present', 'present', 'present', 'absent', 'present', 'present', 'present']),
+    ...att('stu-2', 'cls-5a', ['present', 'present', 'present', 'present', 'absent', 'present', 'present', 'present', 'present', 'present']),
+    ...att('stu-3', 'cls-5a', ['present', 'present', 'present', 'present', 'present', 'present', 'present', 'late', 'present', 'present']),
+    ...att('stu-6', 'cls-6a', ['present', 'present', 'present', 'present', 'present', 'holiday', 'present', 'present', 'present', 'present']),
+  ];
   return {
     schools: [
       {
         id: SCHOOL,
         name: 'Wellspire International School',
         code: 'WELLSPIRE',
-        address: '12 Learning Avenue, Pune, MH 411001',
-        phone: '+91 20 1234 5678',
-        email: 'office@wellspire.school',
+        address: 'Near ORR Exit 6, Kandlakoya, Muneerabad Road, Hyderabad, Telangana 501401',
+        phone: '+91 99883 34844',
+        email: 'info@wellspireinternational.com',
         timezone: 'Asia/Kolkata',
         currency: 'INR',
-        settings: {},
+        settings: { tagline: 'Inspiring Lifelong Learning', motto: 'Educating the Mind. Body. Spirit.' },
         created_at: iso(-400),
         updated_at: iso(-1),
       },
@@ -90,7 +98,7 @@ export function buildMockData() {
     ],
 
     timetable_jobs: [],
-    attendance: [],
+    attendance: attendanceRecords,
 
     fee_structures: [
       { id: 'fs-1', school_id: SCHOOL, academic_year_id: 'ay-2025', name: 'Term 1 Tuition', category: 'tuition', amount: 25000, frequency: 'term' },

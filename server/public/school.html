@@ -3,214 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#15803d">
-<meta name="description" content="Wellspire International School">
-<title>Wellspire International School</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20100%20100%27%3E%3Ctext%20y%3D%27.9em%27%20font-size%3D%2790%27%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#15683c">
+<meta name="description" content="Wellspire International School, Hyderabad — Inspiring Lifelong Learning. A balanced Global–Indian curriculum on a 10-acre biophilic campus for Nursery to Grade 7.">
+<title>Wellspire International School — Hyderabad</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%F0%9F%8C%B1%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    --paper:#fbf9f3;--surface:#fff;--surface-2:#f3f0e7;--ink:#182a20;--muted:#586b5f;--line:#e7e1d3;
+    --green:#15683c;--green-deep:#0f4a2c;--green-weak:#e6f0e8;--gold:#a9791a;--gold-bright:#c8961f;--gold-weak:#f6ecd4;
+    --hero-bg:#0f3b26;--hero-bg2:#155238;--hero-fg:#f4efe2;--hero-muted:#bcd0c2;--hero-gold:#e7c56b;--hero-line:rgba(255,255,255,.12);
+    --shadow:0 1px 2px rgba(20,40,28,.05),0 12px 34px -14px rgba(20,40,28,.18);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;--r:16px;
+  }
+  @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --paper:#0d130f;--surface:#141b16;--surface-2:#19211b;--ink:#eaf1e9;--muted:#9fb2a5;--line:#26312a;
+    --green:#4ec27d;--green-deep:#3aa869;--green-weak:#15271d;--gold:#dcb765;--gold-bright:#e7c56b;--gold-weak:#2a2313;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 40px -16px rgba(0,0,0,.6);
+  }}
+  :root[data-theme="dark"]{
+    --paper:#0d130f;--surface:#141b16;--surface-2:#19211b;--ink:#eaf1e9;--muted:#9fb2a5;--line:#26312a;
+    --green:#4ec27d;--green-deep:#3aa869;--green-weak:#15271d;--gold:#dcb765;--gold-bright:#e7c56b;--gold-weak:#2a2313;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 40px -16px rgba(0,0,0,.6);
+  }
+  *{box-sizing:border-box;}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px;}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;margin:0;letter-spacing:-.01em;text-wrap:balance;}
+  a{color:inherit;text-decoration:none;}p{margin:0;}::selection{background:var(--green);color:#fff;}
+  .eyebrow{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);}
+  @media(prefers-reduced-motion:no-preference){.reveal{opacity:0;transform:translateY(12px);animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards;}@keyframes rise{to{opacity:1;transform:none;}}}
+  .crest{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;color:var(--hero-fg);background:linear-gradient(150deg,var(--green),var(--green-deep));font-family:var(--serif);font-weight:700;font-size:20px;position:relative;}
+  .crest::after{content:"";position:absolute;inset:3px;border-radius:8px;border:1px solid rgba(231,197,107,.5);}
+  nav.top{position:sticky;top:0;z-index:60;backdrop-filter:blur(10px);background:color-mix(in srgb,var(--paper) 84%,transparent);border-bottom:1px solid var(--line);}
+  .nav-in{display:flex;align-items:center;gap:18px;height:70px;}
+  .brand{display:flex;align-items:center;gap:11px;}.brand b{font-family:var(--serif);font-size:17px;line-height:1.05;}
+  .brand span{display:block;font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+  .nav-links{display:none;gap:24px;margin-left:12px;font-size:14.5px;font-weight:600;color:var(--muted);}
+  .nav-links a:hover{color:var(--green);}.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
+  @media(min-width:960px){.nav-links{display:flex;}}
+  .btn{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;border-radius:11px;font-weight:700;font-size:14px;cursor:pointer;border:1px solid transparent;transition:.18s;font-family:var(--sans);}
+  .btn-primary{background:var(--green);color:#fff;}.btn-primary:hover{background:var(--green-deep);transform:translateY(-1px);}
+  .btn-gold{background:var(--gold);color:#fff;}.btn-gold:hover{background:var(--gold-bright);transform:translateY(-1px);}
+  .btn-outline{border-color:var(--line);background:var(--surface);color:var(--ink);}.btn-outline:hover{border-color:var(--green);color:var(--green);}
+  .icon-btn{width:42px;height:42px;padding:0;display:grid;place-items:center;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;}
+  .icon-btn:hover{color:var(--green);border-color:var(--green);}:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+  header.hero{position:relative;color:var(--hero-fg);overflow:hidden;background:radial-gradient(120% 130% at 85% 0%,var(--hero-bg2),var(--hero-bg) 60%);}
+  header.hero::before{content:"";position:absolute;inset:0;opacity:.5;background-image:radial-gradient(circle at 1px 1px,rgba(231,197,107,.18) 1px,transparent 0);background-size:26px 26px;mask-image:radial-gradient(90% 80% at 80% 10%,#000 30%,transparent 75%);}
+  .hero-in{position:relative;display:grid;grid-template-columns:1fr;gap:44px;padding:78px 0 92px;align-items:center;}
+  @media(min-width:960px){.hero-in{grid-template-columns:1.1fr .9fr;}}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 13px;border-radius:999px;font-size:12.5px;font-weight:600;color:var(--hero-gold);background:rgba(255,255,255,.06);border:1px solid var(--hero-line);}
+  h1.title{font-size:clamp(36px,5.4vw,58px);line-height:1.05;margin-top:20px;color:#fff;}h1.title em{font-style:italic;color:var(--hero-gold);}
+  .lede{color:var(--hero-muted);font-size:18px;max-width:32em;margin-top:20px;}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;}
+  .hero-stats{display:flex;flex-wrap:wrap;gap:26px;margin-top:38px;}
+  .hero-stats .s b{font-family:var(--serif);font-size:26px;color:#fff;display:block;line-height:1;}.hero-stats .s span{font-size:12.5px;color:var(--hero-muted);}
+  .hero-card{position:relative;background:rgba(255,255,255,.05);border:1px solid var(--hero-line);border-radius:22px;padding:26px;backdrop-filter:blur(4px);}
+  .hero-card h3{color:#fff;font-size:20px;}.hero-card ul{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:12px;}
+  .hero-card li{display:flex;gap:12px;align-items:flex-start;color:var(--hero-muted);font-size:14.5px;}
+  .hero-card li .dot{margin-top:6px;width:8px;height:8px;border-radius:50%;background:var(--hero-gold);flex:none;}
+  .band{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .band-in{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;padding:34px 0;text-align:center;}
+  @media(min-width:760px){.band-in{grid-template-columns:repeat(4,1fr);}}
+  .band .n{font-family:var(--serif);font-size:32px;color:var(--green);line-height:1;}.band .l{font-size:13px;color:var(--muted);margin-top:6px;}
+  section{padding:82px 0;}.sec-head{max-width:40em;margin-bottom:42px;}
+  .sec-head h2{font-size:clamp(28px,3.6vw,40px);margin-top:12px;}.sec-head p{color:var(--muted);font-size:17px;margin-top:14px;}
+  .center{text-align:center;margin-left:auto;margin-right:auto;}
+  .grid{display:grid;gap:18px;grid-template-columns:1fr;}
+  @media(min-width:640px){.g2{grid-template-columns:repeat(2,1fr);}.g3{grid-template-columns:repeat(2,1fr);}}
+  @media(min-width:980px){.g3{grid-template-columns:repeat(3,1fr);}}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:26px;box-shadow:var(--shadow);}
+  .card .ic{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;background:var(--green-weak);color:var(--green);margin-bottom:16px;font-size:23px;}
+  .card h3{font-size:19px;}.card p{color:var(--muted);font-size:14.5px;margin-top:9px;}
+  .tag{display:inline-block;font-size:12px;font-weight:700;color:var(--gold);background:var(--gold-weak);padding:3px 10px;border-radius:999px;margin-bottom:12px;}
+  .split{display:grid;grid-template-columns:1fr;gap:44px;align-items:center;}@media(min-width:900px){.split{grid-template-columns:1fr 1fr;}}
+  .pillar{display:flex;gap:16px;padding:22px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);box-shadow:var(--shadow);}
+  .pillar .pic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:26px;flex:none;background:var(--green-weak);}
+  .pillar b{font-family:var(--serif);font-size:20px;display:block;}.pillar span{font-size:14px;color:var(--muted);}
+  .portrait{border-radius:20px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(150deg,var(--green-deep),var(--green));min-height:340px;position:relative;box-shadow:var(--shadow);}
+  .portrait::before{content:"";position:absolute;inset:0;opacity:.4;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.25) 1px,transparent 0);background-size:22px 22px;}
+  .portrait .q{position:absolute;left:26px;right:26px;bottom:26px;color:#fff;}
+  .portrait .q p{font-family:var(--serif);font-size:20px;font-style:italic;line-height:1.4;}.portrait .q span{display:block;margin-top:10px;font-size:13px;color:var(--hero-gold);font-weight:600;}
+  .steps{counter-reset:step;display:grid;grid-template-columns:1fr;gap:16px;}@media(min-width:820px){.steps{grid-template-columns:repeat(4,1fr);}}
+  .step{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;}
+  .step::before{counter-increment:step;content:counter(step);font-family:var(--serif);font-size:15px;color:#fff;background:var(--green);width:30px;height:30px;border-radius:9px;display:grid;place-items:center;margin-bottom:14px;}
+  .step b{display:block;font-family:var(--serif);font-size:17px;}.step p{color:var(--muted);font-size:13.5px;margin-top:6px;}
+  .contact{display:grid;grid-template-columns:1fr;gap:34px;}@media(min-width:900px){.contact{grid-template-columns:1fr 1.1fr;}}
+  .info-item{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line);}
+  .info-item .ic{width:42px;height:42px;border-radius:11px;background:var(--green-weak);color:var(--green);display:grid;place-items:center;font-size:18px;flex:none;}
+  .info-item b{font-family:var(--serif);font-size:16px;}.info-item span{display:block;color:var(--muted);font-size:14px;}
+  .form{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:var(--shadow);}
+  .field{margin-bottom:14px;}.field label{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px;}
+  .field input,.field textarea,.field select{width:100%;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:11px;padding:11px 13px;font-size:14px;font-family:var(--sans);}
+  .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--green-weak);}
+  .note{font-size:13px;color:var(--muted);margin-top:10px;}
+  .portal{position:relative;overflow:hidden;border-radius:24px;padding:52px;text-align:center;color:var(--hero-fg);background:radial-gradient(120% 140% at 15% 0%,var(--hero-bg2),var(--hero-bg) 62%);}
+  .portal::before{content:"";position:absolute;inset:0;opacity:.5;background-image:radial-gradient(circle at 1px 1px,rgba(231,197,107,.16) 1px,transparent 0);background-size:26px 26px;mask-image:radial-gradient(80% 120% at 50% 0,#000,transparent 72%);}
+  .portal h2{position:relative;color:#fff;font-size:clamp(26px,3.4vw,36px);}.portal p{position:relative;color:var(--hero-muted);max-width:36em;margin:14px auto 26px;}.portal .hero-cta{position:relative;justify-content:center;}
+  footer{background:var(--surface);border-top:1px solid var(--line);margin-top:20px;}
+  .foot-in{display:grid;grid-template-columns:1fr;gap:30px;padding:52px 0 26px;}@media(min-width:760px){.foot-in{grid-template-columns:2fr 1fr 1fr;}}
+  .foot h4{font-family:var(--sans);font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0 0 14px;}
+  .foot a{display:block;color:var(--ink);font-size:14px;padding:5px 0;}.foot a:hover{color:var(--green);}.foot p{color:var(--muted);font-size:14px;}
+  .foot-bottom{border-top:1px solid var(--line);padding:20px 0;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;color:var(--muted);font-size:13px;}
+</style>
 </head>
 <body>
-<style>
-  :root {
-    --paper:#fbf9f3; --surface:#ffffff; --surface-2:#f4f1e8;
-    --ink:#182a20; --muted:#586b5f; --line:#e7e1d3;
-    --green:#15683c; --green-deep:#0f4a2c; --green-weak:#e6f0e8;
-    --gold:#a9791a; --gold-bright:#c8961f; --gold-weak:#f6ecd4;
-    --hero-bg:#0f3b26; --hero-bg2:#155238; --hero-fg:#f4efe2; --hero-muted:#bcd0c2; --hero-gold:#e7c56b; --hero-line:rgba(255,255,255,.12);
-    --shadow:0 1px 2px rgba(20,40,28,.05), 0 12px 34px -14px rgba(20,40,28,.18);
-    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
-    --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    --r:16px;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --paper:#0d130f; --surface:#141b16; --surface-2:#19211b;
-      --ink:#eaf1e9; --muted:#9fb2a5; --line:#26312a;
-      --green:#4ec27d; --green-deep:#3aa869; --green-weak:#15271d;
-      --gold:#dcb765; --gold-bright:#e7c56b; --gold-weak:#2a2313;
-      --shadow:0 1px 2px rgba(0,0,0,.4), 0 16px 40px -16px rgba(0,0,0,.6);
-    }
-  }
-  :root[data-theme="dark"] {
-    --paper:#0d130f; --surface:#141b16; --surface-2:#19211b;
-    --ink:#eaf1e9; --muted:#9fb2a5; --line:#26312a;
-    --green:#4ec27d; --green-deep:#3aa869; --green-weak:#15271d;
-    --gold:#dcb765; --gold-bright:#e7c56b; --gold-weak:#2a2313;
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 16px 40px -16px rgba(0,0,0,.6);
-  }
-
-  * { box-sizing:border-box; }
-  body { margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans); line-height:1.65; -webkit-font-smoothing:antialiased; }
-  .wrap { max-width:1140px; margin:0 auto; padding:0 24px; }
-  h1,h2,h3 { font-family:var(--serif); font-weight:600; margin:0; letter-spacing:-.01em; text-wrap:balance; }
-  a { color:inherit; text-decoration:none; }
-  p { margin:0; }
-  ::selection { background:var(--green); color:#fff; }
-  .eyebrow { font-family:var(--sans); font-size:12px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); }
-  @media (prefers-reduced-motion:no-preference){
-    .reveal{ opacity:0; transform:translateY(12px); animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards; }
-    @keyframes rise{ to{ opacity:1; transform:none; } }
-  }
-
-  /* crest */
-  .crest { width:38px; height:38px; border-radius:11px; display:grid; place-items:center; color:var(--hero-fg);
-    background:linear-gradient(150deg,var(--green),var(--green-deep)); font-family:var(--serif); font-weight:700; font-size:20px;
-    box-shadow:inset 0 0 0 1px rgba(255,255,255,.15), 0 6px 14px -6px rgba(15,74,44,.6); position:relative; }
-  .crest::after{ content:""; position:absolute; inset:3px; border-radius:8px; border:1px solid rgba(231,197,107,.5); }
-
-  /* NAV */
-  nav.top { position:sticky; top:0; z-index:60; backdrop-filter:blur(10px);
-    background:color-mix(in srgb,var(--paper) 84%,transparent); border-bottom:1px solid var(--line); }
-  .nav-in { display:flex; align-items:center; gap:18px; height:70px; }
-  .brand { display:flex; align-items:center; gap:11px; }
-  .brand b { font-family:var(--serif); font-size:18px; font-weight:600; line-height:1.05; }
-  .brand span { display:block; font-family:var(--sans); font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); }
-  .nav-links { display:none; gap:26px; margin-left:12px; font-size:14.5px; font-weight:600; color:var(--muted); }
-  .nav-links a:hover { color:var(--green); }
-  .nav-right { margin-left:auto; display:flex; align-items:center; gap:10px; }
-  @media (min-width:940px){ .nav-links{ display:flex; } }
-
-  .btn { display:inline-flex; align-items:center; gap:8px; height:42px; padding:0 18px; border-radius:11px; font-weight:700; font-size:14px; cursor:pointer; border:1px solid transparent; transition:.18s; font-family:var(--sans); }
-  .btn-primary { background:var(--green); color:#fff; }
-  .btn-primary:hover { background:var(--green-deep); transform:translateY(-1px); }
-  .btn-gold { background:var(--gold); color:#fff; }
-  .btn-gold:hover { background:var(--gold-bright); transform:translateY(-1px); }
-  .btn-outline { border-color:var(--line); background:var(--surface); color:var(--ink); }
-  .btn-outline:hover { border-color:var(--green); color:var(--green); }
-  .icon-btn { width:42px; height:42px; padding:0; display:grid; place-items:center; border-radius:11px; border:1px solid var(--line); background:var(--surface); color:var(--muted); cursor:pointer; }
-  .icon-btn:hover{ color:var(--green); border-color:var(--green); }
-  :focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
-
-  /* HERO */
-  header.hero { position:relative; color:var(--hero-fg); overflow:hidden;
-    background:radial-gradient(120% 130% at 85% 0%, var(--hero-bg2), var(--hero-bg) 60%); }
-  header.hero::before{ content:""; position:absolute; inset:0; opacity:.5;
-    background-image:radial-gradient(circle at 1px 1px, rgba(231,197,107,.18) 1px, transparent 0); background-size:26px 26px;
-    mask-image:radial-gradient(90% 80% at 80% 10%, #000 30%, transparent 75%); }
-  .hero-in { position:relative; display:grid; grid-template-columns:1fr; gap:44px; padding:78px 0 92px; align-items:center; }
-  @media (min-width:960px){ .hero-in{ grid-template-columns:1.1fr .9fr; } }
-  .pill { display:inline-flex; align-items:center; gap:8px; padding:6px 13px; border-radius:999px; font-size:12.5px; font-weight:600; color:var(--hero-gold); background:rgba(255,255,255,.06); border:1px solid var(--hero-line); }
-  h1.title { font-size:clamp(36px,5.4vw,60px); line-height:1.05; margin-top:20px; color:#fff; }
-  h1.title em { font-style:italic; color:var(--hero-gold); }
-  .lede { color:var(--hero-muted); font-size:18px; max-width:32em; margin-top:20px; }
-  .hero-cta { display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
-  .hero-stats { display:flex; flex-wrap:wrap; gap:26px; margin-top:38px; }
-  .hero-stats .s b { font-family:var(--serif); font-size:30px; color:#fff; display:block; line-height:1; }
-  .hero-stats .s span { font-size:12.5px; color:var(--hero-muted); }
-
-  /* hero card */
-  .hero-card { position:relative; background:rgba(255,255,255,.05); border:1px solid var(--hero-line); border-radius:22px; padding:26px; backdrop-filter:blur(4px); }
-  .hero-card h3 { color:#fff; font-size:20px; }
-  .hero-card ul { list-style:none; padding:0; margin:16px 0 0; display:grid; gap:12px; }
-  .hero-card li { display:flex; gap:12px; align-items:flex-start; color:var(--hero-muted); font-size:14.5px; }
-  .hero-card li .dot { margin-top:6px; width:8px; height:8px; border-radius:50%; background:var(--hero-gold); flex:none; }
-  .hero-card .term { margin-top:20px; padding-top:16px; border-top:1px solid var(--hero-line); display:flex; align-items:center; justify-content:space-between; }
-  .hero-card .term a { color:var(--hero-gold); font-weight:700; font-size:14px; }
-
-  /* STAT BAND */
-  .band { background:var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  .band-in { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; padding:34px 0; text-align:center; }
-  @media (min-width:760px){ .band-in{ grid-template-columns:repeat(4,1fr);} }
-  .band .n { font-family:var(--serif); font-size:34px; color:var(--green); line-height:1; }
-  .band .l { font-size:13px; color:var(--muted); margin-top:6px; }
-
-  section { padding:84px 0; }
-  .sec-head { max-width:40em; margin-bottom:44px; }
-  .sec-head h2 { font-size:clamp(28px,3.6vw,40px); margin-top:12px; }
-  .sec-head p { color:var(--muted); font-size:17.5px; margin-top:14px; }
-  .center { text-align:center; margin-left:auto; margin-right:auto; }
-
-  .grid { display:grid; gap:18px; grid-template-columns:1fr; }
-  @media (min-width:640px){ .g2{ grid-template-columns:repeat(2,1fr);} .g3{ grid-template-columns:repeat(2,1fr);} .g4{ grid-template-columns:repeat(2,1fr);} }
-  @media (min-width:980px){ .g3{ grid-template-columns:repeat(3,1fr);} .g4{ grid-template-columns:repeat(4,1fr);} }
-
-  .card { background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:26px; box-shadow:var(--shadow); }
-  .card .ic { width:46px; height:46px; border-radius:12px; display:grid; place-items:center; background:var(--green-weak); color:var(--green); margin-bottom:16px; font-size:22px; }
-  .card h3 { font-size:20px; }
-  .card p { color:var(--muted); font-size:14.5px; margin-top:9px; }
-  .tag { display:inline-block; font-size:12px; font-weight:700; color:var(--gold); background:var(--gold-weak); padding:3px 10px; border-radius:999px; margin-bottom:12px; }
-
-  /* about split */
-  .split { display:grid; grid-template-columns:1fr; gap:44px; align-items:center; }
-  @media (min-width:900px){ .split{ grid-template-columns:1fr 1fr; } }
-  .values { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-  .value { border:1px solid var(--line); border-radius:14px; padding:18px; background:var(--surface); }
-  .value b { font-family:var(--serif); font-size:17px; display:block; }
-  .value span { font-size:13.5px; color:var(--muted); }
-  .portrait { border-radius:20px; overflow:hidden; border:1px solid var(--line); background:linear-gradient(150deg,var(--green-deep),var(--green)); min-height:340px; position:relative; box-shadow:var(--shadow); }
-  .portrait::before{ content:""; position:absolute; inset:0; opacity:.4; background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.25) 1px, transparent 0); background-size:22px 22px; }
-  .portrait .q { position:absolute; left:26px; right:26px; bottom:26px; color:#fff; }
-  .portrait .q p { font-family:var(--serif); font-size:20px; font-style:italic; line-height:1.4; }
-  .portrait .q span { display:block; margin-top:10px; font-size:13px; color:var(--hero-gold); font-weight:600; }
-
-  /* admissions steps */
-  .steps { counter-reset:step; display:grid; grid-template-columns:1fr; gap:16px; }
-  @media (min-width:820px){ .steps{ grid-template-columns:repeat(4,1fr);} }
-  .step { position:relative; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:24px; }
-  .step::before{ counter-increment:step; content:counter(step); font-family:var(--serif); font-size:15px; color:#fff; background:var(--green); width:30px; height:30px; border-radius:9px; display:grid; place-items:center; margin-bottom:14px; }
-  .step b { display:block; font-family:var(--serif); font-size:17px; }
-  .step p { color:var(--muted); font-size:13.5px; margin-top:6px; }
-
-  /* news */
-  .news { border:1px solid var(--line); border-radius:16px; overflow:hidden; background:var(--surface); box-shadow:var(--shadow); }
-  .news .top { height:120px; background:linear-gradient(135deg,var(--green),var(--green-deep)); position:relative; }
-  .news .top.gold{ background:linear-gradient(135deg,var(--gold),#8a6212); }
-  .news .top.mix{ background:linear-gradient(135deg,#1f7a4d,#0f4a2c); }
-  .news .top .date { position:absolute; left:16px; bottom:14px; color:#fff; font-size:12.5px; font-weight:700; letter-spacing:.04em; }
-  .news .body { padding:20px; }
-  .news .body h3 { font-size:18px; }
-  .news .body p { color:var(--muted); font-size:14px; margin-top:8px; }
-
-  /* contact */
-  .contact { display:grid; grid-template-columns:1fr; gap:34px; }
-  @media (min-width:900px){ .contact{ grid-template-columns:1fr 1.1fr; } }
-  .info-item { display:flex; gap:14px; align-items:flex-start; padding:16px 0; border-bottom:1px solid var(--line); }
-  .info-item .ic { width:42px; height:42px; border-radius:11px; background:var(--green-weak); color:var(--green); display:grid; place-items:center; font-size:18px; flex:none; }
-  .info-item b { font-family:var(--serif); font-size:16px; }
-  .info-item span { display:block; color:var(--muted); font-size:14px; }
-  .form { background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:26px; box-shadow:var(--shadow); }
-  .field { margin-bottom:14px; }
-  .field label { display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin-bottom:6px; }
-  .field input, .field textarea, .field select { width:100%; border:1px solid var(--line); background:var(--paper); color:var(--ink); border-radius:11px; padding:11px 13px; font-size:14px; font-family:var(--sans); }
-  .field input:focus, .field textarea:focus, .field select:focus { outline:none; border-color:var(--green); box-shadow:0 0 0 3px var(--green-weak); }
-  .note { font-size:13px; color:var(--muted); margin-top:10px; }
-
-  /* portal band */
-  .portal { position:relative; overflow:hidden; border-radius:24px; padding:52px; text-align:center; color:var(--hero-fg);
-    background:radial-gradient(120% 140% at 15% 0%, var(--hero-bg2), var(--hero-bg) 62%); }
-  .portal::before{ content:""; position:absolute; inset:0; opacity:.5; background-image:radial-gradient(circle at 1px 1px, rgba(231,197,107,.16) 1px, transparent 0); background-size:26px 26px; mask-image:radial-gradient(80% 120% at 50% 0,#000,transparent 72%); }
-  .portal h2 { position:relative; color:#fff; font-size:clamp(26px,3.4vw,36px); }
-  .portal p { position:relative; color:var(--hero-muted); max-width:36em; margin:14px auto 26px; }
-  .portal .hero-cta{ position:relative; justify-content:center; }
-
-  footer { background:var(--surface); border-top:1px solid var(--line); margin-top:20px; }
-  .foot-in { display:grid; grid-template-columns:1fr; gap:30px; padding:52px 0 26px; }
-  @media (min-width:760px){ .foot-in{ grid-template-columns:2fr 1fr 1fr; } }
-  .foot h4 { font-family:var(--sans); font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin:0 0 14px; }
-  .foot a { display:block; color:var(--ink); font-size:14px; padding:5px 0; }
-  .foot a:hover { color:var(--green); }
-  .foot p { color:var(--muted); font-size:14px; }
-  .foot-bottom { border-top:1px solid var(--line); padding:20px 0; display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; color:var(--muted); font-size:13px; }
-</style>
-
 <nav class="top">
   <div class="wrap nav-in">
-    <a class="brand" href="#top">
-      <span class="crest">W</span>
-      <span><b>Wellspire</b><span>International School</span></span>
-    </a>
+    <a class="brand" href="#top"><span class="crest">W</span><span><b>Wellspire International</b><span>Hyderabad</span></span></a>
     <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#academics">Academics</a>
-      <a href="#admissions">Admissions</a>
-      <a href="#campus">Campus</a>
-      <a href="#news">News</a>
-      <a href="#contact">Contact</a>
+      <a href="#about">About</a><a href="#academics">Academics</a><a href="#programs">Programs</a>
+      <a href="#admissions">Admissions</a><a href="#campus">Campus</a><a href="#contact">Contact</a>
     </div>
     <div class="nav-right">
       <button class="icon-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle light / dark">
         <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
       </button>
-      <a class="btn btn-gold" href="/parent" target="_blank" rel="noreferrer">Parent &amp; Staff Portal →</a>
+      <a class="btn btn-gold" href="/">Portal Login →</a>
     </div>
   </div>
 </nav>
@@ -218,160 +125,137 @@
 <header class="hero" id="top">
   <div class="wrap hero-in">
     <div class="reveal">
-      <span class="pill">◆ Established 2005 · Pune, India</span>
-      <h1 class="title">Where curiosity takes root and <em>character takes flight.</em></h1>
-      <p class="lede">An international school for ages 3–18, blending a rigorous academic curriculum with the arts, sport, and a deep commitment to every child's wellbeing.</p>
+      <span class="pill">🌱 Rooted in Values. Ready for the World.</span>
+      <h1 class="title">Inspiring <em>lifelong learning.</em></h1>
+      <p class="lede">A balanced Global–Indian curriculum on a 10-acre biophilic campus in Hyderabad — education that inspires, not pressurises, for Nursery to Grade 7.</p>
       <div class="hero-cta">
-        <a class="btn btn-gold" href="#admissions">Apply for 2026–27</a>
+        <a class="btn btn-gold" href="#admissions">Apply for admission</a>
         <a class="btn btn-outline" href="#campus" style="color:var(--hero-fg);border-color:var(--hero-line);background:rgba(255,255,255,.05)">Explore the campus</a>
       </div>
       <div class="hero-stats">
-        <div class="s"><b>21</b><span>years of excellence</span></div>
-        <div class="s"><b>30+</b><span>nationalities</span></div>
-        <div class="s"><b>1:12</b><span>teacher–student ratio</span></div>
-        <div class="s"><b>100%</b><span>board pass rate</span></div>
+        <div class="s"><b>10-acre</b><span>green campus</span></div>
+        <div class="s"><b>Nursery–7</b><span>grades offered</span></div>
+        <div class="s"><b>Mind·Body·Spirit</b><span>holistic learning</span></div>
+        <div class="s"><b>1:1</b><span>values &amp; academics</span></div>
       </div>
     </div>
     <div class="hero-card reveal" style="animation-delay:.12s">
       <h3>Admissions open</h3>
       <ul>
-        <li><span class="dot"></span> Nursery to Grade 12 · limited seats per class</li>
-        <li><span class="dot"></span> Rolling interactions from October</li>
-        <li><span class="dot"></span> Scholarships for merit &amp; need</li>
-        <li><span class="dot"></span> Weekly campus tours, Tuesdays &amp; Fridays</li>
+        <li><span class="dot"></span> Nursery, LKG, UKG &amp; Grades 1–7</li>
+        <li><span class="dot"></span> Globally inspired, Indian-rooted curriculum</li>
+        <li><span class="dot"></span> Air-conditioned classrooms &amp; GPS transport</li>
+        <li><span class="dot"></span> Weekly campus tours — book your visit</li>
       </ul>
-      <div class="term"><span style="color:var(--hero-muted);font-size:13px">Term begins</span><a href="#admissions">1 June 2026 →</a></div>
+      <div style="margin-top:20px"><a class="btn btn-gold" href="#contact" style="width:100%;justify-content:center">Enquire now</a></div>
     </div>
   </div>
 </header>
 
 <div class="band">
   <div class="wrap band-in">
-    <div><div class="n">742</div><div class="l">Students enrolled</div></div>
-    <div><div class="n">48</div><div class="l">Faculty &amp; mentors</div></div>
-    <div><div class="n">24</div><div class="l">Acres green campus</div></div>
-    <div><div class="n">40+</div><div class="l">Clubs &amp; activities</div></div>
+    <div><div class="n">10</div><div class="l">Acre biophilic campus</div></div>
+    <div><div class="n">Global–Indian</div><div class="l">Balanced curriculum</div></div>
+    <div><div class="n">AI &amp; Robotics</div><div class="l">Future-ready labs</div></div>
+    <div><div class="n">Farm-to-class</div><div class="l">Life-skills learning</div></div>
   </div>
 </div>
 
-<section id="about">
+<section id="pillars">
+  <div class="wrap">
+    <div class="sec-head center"><span class="eyebrow">Our approach</span><h2>Educating the Mind. Body. Spirit.</h2>
+      <p>A holistic framework that nurtures the whole child — not just the marksheet.</p></div>
+    <div class="grid g3">
+      <div class="pillar reveal"><div class="pic">🧠</div><div><b>Mind</b><span>Motivated &amp; innovative — knowledge, curiosity and critical thinking.</span></div></div>
+      <div class="pillar reveal"><div class="pic">💪</div><div><b>Body</b><span>Discipline &amp; teamwork — physical wellness and an active lifestyle.</span></div></div>
+      <div class="pillar reveal"><div class="pic">✨</div><div><b>Spirit</b><span>Compassion &amp; character — creativity and contribution to community.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about" style="background:var(--surface-2)">
   <div class="wrap split">
     <div class="reveal">
-      <span class="eyebrow">Our philosophy</span>
-      <h2 style="margin-top:12px;font-size:clamp(28px,3.6vw,40px)">A school built around the whole child.</h2>
-      <p style="color:var(--muted);font-size:16.5px;margin-top:16px">At Wellspire we believe education is more than examinations. Alongside a demanding academic programme, our students learn to think critically, create boldly, and lead with empathy — supported by mentors who know them by name.</p>
-      <div class="values" style="margin-top:26px">
-        <div class="value"><b>Curiosity</b><span>Questions valued over quick answers.</span></div>
-        <div class="value"><b>Integrity</b><span>Doing right when no one is watching.</span></div>
-        <div class="value"><b>Community</b><span>Every family, part of the whole.</span></div>
-        <div class="value"><b>Excellence</b><span>Personal best, in and beyond class.</span></div>
+      <span class="eyebrow">About Wellspire</span>
+      <h2 style="margin-top:12px;font-size:clamp(28px,3.6vw,40px)">Education that inspires — not pressurises.</h2>
+      <p style="color:var(--muted);font-size:16.5px;margin-top:16px">Wellspire International School blends globally inspired pedagogy with Indian roots, combining strong academic foundations with genuine character development. Our progressive, integrated approach to content, teaching and assessment lets every child learn with confidence and joy.</p>
+      <div class="grid g2" style="margin-top:24px">
+        <div class="card" style="padding:18px"><b style="font-family:var(--serif)">Globally inspired</b><p style="margin-top:4px">Indian-rooted curriculum with international best practice.</p></div>
+        <div class="card" style="padding:18px"><b style="font-family:var(--serif)">Holistic &amp; progressive</b><p style="margin-top:4px">Content, pedagogy and assessment, thoughtfully integrated.</p></div>
       </div>
     </div>
     <div class="portrait reveal" style="animation-delay:.1s">
-      <div class="q">
-        <p>“Wellspire didn't just prepare my daughter for university — it prepared her for life.”</p>
-        <span>— Meera Nair, parent since 2019</span>
-      </div>
+      <div class="q"><p>“Where curiosity meets confidence — and children grow into lifelong learners.”</p><span>— The Wellspire philosophy</span></div>
     </div>
   </div>
 </section>
 
-<section id="academics" style="background:var(--surface-2)">
+<section id="academics">
   <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Academics</span>
-      <h2>A curriculum that grows with your child.</h2>
-      <p>Four connected stages, one continuous journey — CBSE core with Cambridge-informed enrichment in languages, STEM and the arts.</p>
-    </div>
-    <div class="grid g4">
-      <div class="card reveal"><span class="tag">Ages 3–5</span><div class="ic">🌱</div><h3>Early Years</h3><p>Play-based, inquiry-led learning that builds language, motor skills and a lifelong love of school.</p></div>
-      <div class="card reveal"><span class="tag">Grades 1–5</span><div class="ic">✏️</div><h3>Primary</h3><p>Strong foundations in literacy and numeracy, with music, art, coding and sport woven through the week.</p></div>
-      <div class="card reveal"><span class="tag">Grades 6–8</span><div class="ic">🔬</div><h3>Middle School</h3><p>Deeper subject specialism, project work and labs that turn curiosity into real understanding.</p></div>
-      <div class="card reveal"><span class="tag">Grades 9–12</span><div class="ic">🎓</div><h3>Senior School</h3><p>Board preparation, electives and university counselling that open doors across India and abroad.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="why">
-  <div class="wrap">
-    <div class="sec-head center">
-      <span class="eyebrow">Why Wellspire</span>
-      <h2>More than a classroom.</h2>
-      <p>The everyday details that add up to an extraordinary education.</p>
-    </div>
+    <div class="sec-head"><span class="eyebrow">Academics</span><h2>A journey that grows with your child.</h2>
+      <p>A balanced Global–Indian curriculum from the early years through middle school.</p></div>
     <div class="grid g3">
-      <div class="card reveal"><div class="ic">👩‍🏫</div><h3>Small classes</h3><p>A 1:12 ratio means teachers see, know and stretch every single student.</p></div>
-      <div class="card reveal"><div class="ic">🧪</div><h3>STEM &amp; robotics</h3><p>Dedicated science, computing and robotics labs from the primary years upward.</p></div>
-      <div class="card reveal"><div class="ic">🎭</div><h3>Arts &amp; sport</h3><p>Music, theatre, visual arts and 12 sports — because talent grows in many directions.</p></div>
-      <div class="card reveal"><div class="ic">💚</div><h3>Wellbeing first</h3><p>On-campus counsellors and a house system so no child slips through the cracks.</p></div>
-      <div class="card reveal"><div class="ic">🚌</div><h3>Safe transport</h3><p>GPS-tracked buses and trained attendants across 40+ routes in the city.</p></div>
-      <div class="card reveal"><div class="ic">💻</div><h3>Digital campus</h3><p>Fees, attendance, timetables and results — all in one parent portal, always up to date.</p></div>
+      <div class="card reveal"><span class="tag">Nursery · LKG · UKG</span><div class="ic">🌱</div><h3>Early Years</h3><p>Play-based, inquiry-led foundations that build language, motor skills and a love of learning.</p></div>
+      <div class="card reveal"><span class="tag">Grades 1–5</span><div class="ic">✏️</div><h3>Primary</h3><p>Strong literacy and numeracy woven with art, music, coding and outdoor learning.</p></div>
+      <div class="card reveal"><span class="tag">Grades 6–7</span><div class="ic">🔬</div><h3>Middle School</h3><p>Deeper subject specialism, experiential projects and labs that turn curiosity into understanding.</p></div>
     </div>
   </div>
 </section>
 
-<section id="admissions" style="background:var(--surface-2)">
+<section id="programs" style="background:var(--surface-2)">
   <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Admissions</span>
-      <h2>Joining the Wellspire family.</h2>
-      <p>A warm, four-step process designed to get to know your child — not just their marks.</p>
+    <div class="sec-head"><span class="eyebrow">Signature programs</span><h2>Learning beyond the classroom.</h2>
+      <p>Purpose-built spaces and programs that make Wellspire genuinely different.</p></div>
+    <div class="grid g3">
+      <div class="card reveal"><div class="ic">🤖</div><h3>AI &amp; Robotics Lab</h3><p>Hands-on coding, robotics and design thinking from an early age.</p></div>
+      <div class="card reveal"><div class="ic">🌿</div><h3>Life-Skills Farming</h3><p>A working farm program that teaches responsibility, nutrition and nature.</p></div>
+      <div class="card reveal"><div class="ic">🪴</div><h3>Biophilic Learning Spaces</h3><p>Nature-integrated classrooms that calm, focus and inspire young minds.</p></div>
+      <div class="card reveal"><div class="ic">🎙️</div><h3>Podcast Studio</h3><p>Students find their voice — literally — through media and storytelling.</p></div>
+      <div class="card reveal"><div class="ic">🕊️</div><h3>Value Education Lab</h3><p>Character, empathy and ethics, taught as intentionally as any subject.</p></div>
+      <div class="card reveal"><div class="ic">🏅</div><h3>Creative &amp; Sports Excellence</h3><p>Art, music, dance and 12+ sports so every talent finds its stage.</p></div>
     </div>
+  </div>
+</section>
+
+<section id="admissions">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Admissions</span><h2>Joining the Wellspire family.</h2>
+      <p>A warm, four-step process designed to get to know your child.</p></div>
     <div class="steps">
-      <div class="step reveal"><b>Enquire</b><p>Submit the enquiry form or call our admissions office to register interest.</p></div>
-      <div class="step reveal"><b>Apply</b><p>Complete the application and share previous school records.</p></div>
-      <div class="step reveal"><b>Interact</b><p>An age-appropriate interaction and a campus tour for the family.</p></div>
-      <div class="step reveal"><b>Welcome</b><p>Receive your offer, confirm the seat, and step into Wellspire.</p></div>
+      <div class="step reveal"><b>Enquire</b><p>Submit the enquiry form or call our admissions team.</p></div>
+      <div class="step reveal"><b>Visit</b><p>Tour the 10-acre campus and meet our educators.</p></div>
+      <div class="step reveal"><b>Interact</b><p>An age-appropriate interaction for your child.</p></div>
+      <div class="step reveal"><b>Welcome</b><p>Confirm the seat and step into Wellspire.</p></div>
     </div>
     <div style="margin-top:30px"><a class="btn btn-primary" href="#contact">Start your enquiry</a></div>
   </div>
 </section>
 
-<section id="campus">
+<section id="campus" style="background:var(--surface-2)">
   <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Campus &amp; facilities</span>
-      <h2>A place designed for learning.</h2>
-      <p>Twenty-four green acres with everything a growing mind and body could ask for.</p>
-    </div>
+    <div class="sec-head"><span class="eyebrow">Campus &amp; facilities</span><h2>A campus that breathes.</h2>
+      <p>Ten green acres near ORR Exit 6, designed for safe, joyful, future-ready learning.</p></div>
     <div class="grid g3">
-      <div class="card reveal"><div class="ic">📚</div><h3>Library &amp; media</h3><p>25,000+ titles, quiet study bays and a digital research commons.</p></div>
-      <div class="card reveal"><div class="ic">⚗️</div><h3>Science &amp; robotics</h3><p>Six specialist labs for physics, chemistry, biology and computing.</p></div>
-      <div class="card reveal"><div class="ic">🏟️</div><h3>Sports complex</h3><p>Athletics track, pool, courts and coached teams across 12 disciplines.</p></div>
-      <div class="card reveal"><div class="ic">🎪</div><h3>Auditorium</h3><p>A 600-seat theatre for assemblies, performances and speaker events.</p></div>
-      <div class="card reveal"><div class="ic">🍎</div><h3>Dining hall</h3><p>Freshly prepared, nutritionist-planned meals with allergy-safe menus.</p></div>
-      <div class="card reveal"><div class="ic">🎨</div><h3>Arts studios</h3><p>Music rooms, a dance studio and open art spaces for every medium.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="news" style="background:var(--surface-2)">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">News &amp; events</span>
-      <h2>Life at Wellspire.</h2>
-    </div>
-    <div class="grid g3">
-      <div class="news reveal"><div class="top"><span class="date">15 Aug 2026</span></div><div class="body"><h3>Independence Day &amp; Founder's Assembly</h3><p>Students lead a morning of music, march-past and a tree-planting drive across campus.</p></div></div>
-      <div class="news reveal"><div class="top gold"><span class="date">12 Sep 2026</span></div><div class="body"><h3>Annual Science &amp; Innovation Fair</h3><p>From robotics to renewable energy — Grades 6–12 present projects to families and judges.</p></div></div>
-      <div class="news reveal"><div class="top mix"><span class="date">Open now</span></div><div class="body"><h3>Admissions 2026–27 are open</h3><p>Seats are filling for all grades. Book a campus tour and begin your enquiry today.</p></div></div>
+      <div class="card reveal"><div class="ic">❄️</div><h3>Air-conditioned classrooms</h3><p>Comfortable, tech-enabled rooms built for focus.</p></div>
+      <div class="card reveal"><div class="ic">🚌</div><h3>GPS-enabled transport</h3><p>Safe, tracked buses with trained attendants.</p></div>
+      <div class="card reveal"><div class="ic">📚</div><h3>Classroom libraries</h3><p>A mini-library in every room to grow a reading habit.</p></div>
+      <div class="card reveal"><div class="ic">🧪</div><h3>STEM &amp; experiential</h3><p>Labs and projects that make learning tangible.</p></div>
+      <div class="card reveal"><div class="ic">🛡️</div><h3>Safe infrastructure</h3><p>Child-friendly, secure and thoughtfully designed.</p></div>
+      <div class="card reveal"><div class="ic">🌳</div><h3>Green open spaces</h3><p>Room to run, play and connect with nature.</p></div>
     </div>
   </div>
 </section>
 
 <section id="contact">
   <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Get in touch</span>
-      <h2>We'd love to meet you.</h2>
-      <p>Reach the admissions office, or send an enquiry and we'll respond within one working day.</p>
-    </div>
+    <div class="sec-head"><span class="eyebrow">Get in touch</span><h2>We'd love to meet you.</h2>
+      <p>Reach our admissions team or send an enquiry — we'll respond within one working day.</p></div>
     <div class="contact">
       <div class="reveal">
-        <div class="info-item"><div class="ic">📍</div><div><b>Campus</b><span>12 Learning Avenue, Pune, Maharashtra 411001</span></div></div>
-        <div class="info-item"><div class="ic">📞</div><div><b>Admissions office</b><span>+91 20 1234 5678 · Mon–Sat, 9:00–16:00</span></div></div>
-        <div class="info-item"><div class="ic">✉️</div><div><b>Email</b><span>admissions@wellspire.school</span></div></div>
-        <div class="info-item" style="border-bottom:none"><div class="ic">🔐</div><div><b>Existing families</b><span>Use the <a href="/parent" style="color:var(--green);font-weight:600">Parent &amp; Staff Portal</a> for fees, attendance &amp; results.</span></div></div>
+        <div class="info-item"><div class="ic">📍</div><div><b>Campus</b><span>Near ORR Exit 6, Kandlakoya, Muneerabad Road, Hyderabad, Telangana 501401</span></div></div>
+        <div class="info-item"><div class="ic">📞</div><div><b>Admissions</b><span>+91 99883 34844 · +91 99883 35466</span></div></div>
+        <div class="info-item"><div class="ic">✉️</div><div><b>Email</b><span>info@wellspireinternational.com</span></div></div>
+        <div class="info-item" style="border-bottom:none"><div class="ic">🔐</div><div><b>Existing families &amp; staff</b><span>Use the <a href="/" style="color:var(--green);font-weight:600">Portal Login</a> for fees, attendance, timetable &amp; more.</span></div></div>
       </div>
       <form class="form reveal" id="enquiry" style="animation-delay:.1s">
         <div class="field"><label>Parent / guardian name</label><input required placeholder="Your full name" /></div>
@@ -380,14 +264,12 @@
           <div class="field"><label>Phone</label><input placeholder="+91 …" /></div>
         </div>
         <div class="grid g2" style="gap:14px">
-          <div class="field"><label>Child's grade</label>
-            <select><option>Early Years</option><option>Primary (1–5)</option><option>Middle (6–8)</option><option>Senior (9–12)</option></select>
-          </div>
-          <div class="field"><label>Preferred year</label><select><option>2026–27</option><option>2027–28</option></select></div>
+          <div class="field"><label>Grade sought</label><select><option>Nursery</option><option>LKG</option><option>UKG</option><option>Grade 1–5</option><option>Grade 6–7</option></select></div>
+          <div class="field"><label>Previous school</label><input placeholder="If applicable" /></div>
         </div>
         <div class="field"><label>Message</label><textarea rows="3" placeholder="Tell us about your child…"></textarea></div>
         <button class="btn btn-primary" type="submit" style="width:100%">Send enquiry</button>
-        <p class="note" id="formNote">This is a demonstration site — submissions aren't stored. Please email <b>admissions@wellspire.school</b> to reach us.</p>
+        <p class="note" id="formNote">Demo site — submissions aren't stored. Please email <b>info@wellspireinternational.com</b> or call <b>+91 99883 34844</b>.</p>
       </form>
     </div>
   </div>
@@ -397,10 +279,8 @@
   <div class="wrap">
     <div class="portal">
       <h2>Already part of Wellspire?</h2>
-      <p>Parents and staff can view fees, attendance, timetables, library records and results anytime in the secure school portal.</p>
-      <div class="hero-cta">
-        <a class="btn btn-gold" href="/parent" target="_blank" rel="noreferrer">Open the Parent &amp; Staff Portal →</a>
-      </div>
+      <p>Parents and staff sign in to view fees, attendance, timetables, library records and school notices anytime.</p>
+      <div class="hero-cta"><a class="btn btn-gold" href="/">Open the Portal Login →</a></div>
     </div>
   </div>
 </section>
@@ -408,49 +288,32 @@
 <footer>
   <div class="wrap foot-in">
     <div>
-      <a class="brand" href="#top" style="margin-bottom:14px"><span class="crest">W</span><span><b>Wellspire</b><span>International School</span></span></a>
-      <p style="max-width:30em">Nurturing curious minds and kind hearts in Pune since 2005. An inclusive, future-ready international school for ages 3–18.</p>
+      <a class="brand" href="#top" style="margin-bottom:14px"><span class="crest">W</span><span><b>Wellspire International</b><span>Hyderabad</span></span></a>
+      <p style="max-width:30em">Inspiring lifelong learning on a 10-acre biophilic campus. A balanced Global–Indian school for Nursery to Grade 7 — educating the Mind, Body and Spirit.</p>
     </div>
-    <div class="foot">
-      <h4>Explore</h4>
-      <a href="#about">About us</a><a href="#academics">Academics</a><a href="#admissions">Admissions</a><a href="#campus">Campus</a>
-    </div>
-    <div class="foot">
-      <h4>Community</h4>
-      <a href="#news">News &amp; events</a><a href="#contact">Contact</a>
-      <a href="/parent" target="_blank" rel="noreferrer">Parent &amp; Staff Portal</a>
+    <div class="foot"><h4>Explore</h4><a href="#about">About us</a><a href="#academics">Academics</a><a href="#programs">Programs</a><a href="#admissions">Admissions</a></div>
+    <div class="foot"><h4>Connect</h4>
+      <a href="https://facebook.com/wellspireinternationalschool/" target="_blank" rel="noreferrer">Facebook</a>
+      <a href="https://instagram.com/wellspireinternational/" target="_blank" rel="noreferrer">Instagram</a>
+      <a href="https://linkedin.com/company/wellspire-international-school" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="/">Portal Login</a>
     </div>
   </div>
   <div class="wrap foot-bottom">
-    <span>© 2026 Wellspire International School · Pune, India</span>
-    <span>Curiosity · Integrity · Community · Excellence</span>
+    <span>© 2026 Wellspire International School · Hyderabad, India</span>
+    <span>Mind · Body · Spirit</span>
   </div>
 </footer>
 
 <script>
-  (function(){
-    var root=document.documentElement, btn=document.getElementById('themeBtn'), ic=document.getElementById('themeIcon');
-    var moon='<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>';
-    var sun='<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
-    function cur(){ var t=root.getAttribute('data-theme'); if(t) return t; return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'; }
-    function paint(){ ic.innerHTML = cur()==='dark'? sun : moon; }
-    btn.addEventListener('click', function(){ root.setAttribute('data-theme', cur()==='dark'?'light':'dark'); paint(); });
-    paint();
-  })();
-  document.getElementById('enquiry').addEventListener('submit', function(e){
-    e.preventDefault();
-    var n=document.getElementById('formNote');
-    n.innerHTML='✓ Thank you! On the live site this reaches admissions. For now, email <b>admissions@wellspire.school</b>.';
-    n.style.color='var(--green)';
-    this.reset();
-  });
-  document.querySelectorAll('a[href^="#"]').forEach(function(a){
-    a.addEventListener('click', function(e){
-      var t=document.querySelector(this.getAttribute('href'));
-      if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
-    });
-  });
+  (function(){var root=document.documentElement,b=document.getElementById('themeBtn'),ic=document.getElementById('themeIcon');
+    var moon='<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',sun='<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+    function cur(){var t=root.getAttribute('data-theme');return t||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');}
+    function paint(){ic.innerHTML=cur()==='dark'?sun:moon;}
+    b.addEventListener('click',function(){root.setAttribute('data-theme',cur()==='dark'?'light':'dark');paint();});paint();})();
+  document.getElementById('enquiry').addEventListener('submit',function(e){e.preventDefault();var n=document.getElementById('formNote');
+    n.innerHTML='✓ Thank you! On the live site this reaches admissions. For now, email <b>info@wellspireinternational.com</b>.';n.style.color='var(--green)';this.reset();});
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var t=document.querySelector(this.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}});});
 </script>
-
 </body>
 </html>
