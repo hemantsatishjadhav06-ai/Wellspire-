@@ -25,6 +25,12 @@ export function createApp() {
   app.use('/api', api);
   app.use('/api', notFound);
 
+  // Public static pages — marketing website + parent portal.
+  // Registered before the SPA catch-all so they win over index.html.
+  const publicDir = path.resolve(__dirname, '../public');
+  app.get(['/website', '/site'], (_req, res) => res.sendFile(path.join(publicDir, 'school.html')));
+  app.get(['/parent', '/parents'], (_req, res) => res.sendFile(path.join(publicDir, 'parent.html')));
+
   // Static frontend (built by `npm run build`)
   if (fs.existsSync(webDist)) {
     app.use(express.static(webDist));
