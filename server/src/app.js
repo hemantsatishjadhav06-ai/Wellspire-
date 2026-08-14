@@ -28,7 +28,9 @@ export function createApp() {
   // Public static pages — marketing website + parent portal.
   // Registered before the SPA catch-all so they win over index.html.
   const publicDir = path.resolve(__dirname, '../public');
-  app.get(['/website', '/site'], (_req, res) => res.sendFile(path.join(publicDir, 'school.html')));
+  // Public multi-page marketing website (real brand), served as static files.
+  app.use('/website', express.static(path.join(publicDir, 'site')));
+  app.get('/site', (_req, res) => res.redirect('/website/'));
   // The parent experience is now the live, backend-connected dashboard behind login.
   app.get(['/parent', '/parents'], (_req, res) => res.redirect('/'));
 
