@@ -1,9 +1,45 @@
-import React, { useMemo, useState } from 'react';
-import { Plus, Search } from 'lucide-react';
+import React, { useMemo, useRef, useState } from 'react';
+import { Plus, Search, Download, Upload, Loader2 } from 'lucide-react';
 import api from '../lib/api.js';
 import {
   Card, PageHeader, Table, Spinner, ErrorNote, EmptyState, Modal, Field, Input, Select, useAsync,
 } from './ui.jsx';
+
+const API_BASE = import.meta.env.VITE_API_BASE || '/api';
+
+export function ExcelButtons({ exportKey, onImported }) {
+  const fileRef = useRef(null);
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState(null);
+
+  async function onFile(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setBusy(true); setMsg(null);
+    try {
+      const dataBase64 = await new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = () => resolve(String(r.result));
+        r.onerror = reject;
+        r.readAsDataURL(file);
+      });
+      const res = await api.post(`/import/${exportKey}`, { dataBase64 });
+      setMsg(`Imported ${res.inserted}/${res.parsed} rows`);
+      onImported?.();
+    } catch (err) { setMsg(err.message); } finally { setBusy(false); if (fileRef.current) fileRef.current.value = ''; }
+  }
+
+  return (
+    <>
+      <a className="btn-outline" href={`${API_BASE}/export/${exportKey}.xlsx`}><Download className="h-4 w-4" /> Export</a>
+      <button className="btn-outline" onClick={() => fileRef.current?.click()} disabled={busy}>
+        {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />} Import
+      </button>
+      <input ref={fileRef} type="file" accept=".xlsx" className="hidden" onChange={onFile} />
+      {msg && <span className="text-xs text-slate-500">{msg}</span>}
+    </>
+  );
+}
 
 /**
  * Config-driven CRUD page.
@@ -35,7 +71,12 @@ export default function ResourcePage(p) {
   return (
     <div>
       <PageHeader title={p.title} subtitle={p.subtitle}
-        actions={p.fields ? <button className="btn-primary" onClick={() => setOpen(true)}><Plus className="h-4 w-4" /> {p.addLabel || 'Add'}</button> : null} />
+        actions={
+          <div className="flex flex-wrap items-center gap-2">
+            {p.exportKey && <ExcelButtons exportKey={p.exportKey} onImported={reload} />}
+            {p.fields && <button className="btn-primary" onClick={() => setOpen(true)}><Plus className="h-4 w-4" /> {p.addLabel || 'Add'}</button>}
+          </div>
+        } />
 
       {p.searchKey && (
         <Card className="mb-4 p-3">
