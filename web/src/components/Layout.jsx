@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Users, GraduationCap, School, CalendarDays, ClipboardCheck,
   Wallet, BookOpen, Boxes, Bot, Zap, Settings, Menu, X, Bell, ChevronDown,
   LogOut, Repeat, Bus, Building2, FlaskConical, HeartPulse, Megaphone, Briefcase,
-  UserPlus, CalendarClock, Trash2, Sparkles,
+  UserPlus, CalendarClock, Trash2, Sparkles, Search, Database,
 } from 'lucide-react';
 import { Badge } from './ui.jsx';
 import { useAuth } from '../lib/auth.jsx';
@@ -48,6 +48,7 @@ const NAV_GROUPS = [
   ] },
   { group: 'Platform', items: [
     { to: '/platform', label: 'Schools', icon: Building2, roles: ['admin', 'principal'] },
+    { to: '/data', label: 'Data & Excel', icon: Database, roles: ['admin', 'principal'] },
     { to: '/settings', label: 'Settings', icon: Settings, roles: ['admin', 'principal'] },
   ] },
 ];
@@ -103,7 +104,7 @@ export default function Layout({ children, mode }) {
       <div className="lg:pl-64">
         <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-slate-200 bg-white/80 px-4 backdrop-blur lg:px-8">
           <button className="lg:hidden" onClick={() => setOpen(true)}><Menu className="h-5 w-5 text-slate-600" /></button>
-          <div className="hidden text-sm font-semibold text-slate-700 sm:block">{current?.label || 'Wellspire'}</div>
+          <GlobalSearch />
 
           <div className="ml-auto flex items-center gap-2">
             {mode === 'demo' && <Badge color="amber" className="hidden sm:inline-flex">Demo mode</Badge>}
@@ -115,6 +116,65 @@ export default function Layout({ children, mode }) {
 
         <main className="mx-auto max-w-7xl px-4 py-6 lg:px-8 lg:py-8">{children}</main>
       </div>
+    </div>
+  );
+}
+
+const SEARCH_ROUTE = {
+  students: '/students', teachers: '/teachers', staff: '/hr', guardians: '/students',
+  leads: '/leads', campaigns: '/marketing', fees: '/fees', books: '/library',
+  inventory: '/inventory', vehicles: '/transport', labs: '/labs', appointments: '/appointments',
+  facilities: '/facilities', leave: '/leave', hostel_rooms: '/hostel', infirmary: '/infirmary',
+};
+
+function GlobalSearch() {
+  const [q, setQ] = useState('');
+  const [res, setRes] = useState(null);
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  const nav = useNavigate();
+
+  useEffect(() => {
+    if (q.trim().length < 2) { setRes(null); return; }
+    const id = setTimeout(() => {
+      api.get('/search', { q }).then(setRes).catch(() => {});
+    }, 250);
+    return () => clearTimeout(id);
+  }, [q]);
+
+  useEffect(() => {
+    const h = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener('mousedown', h);
+    return () => document.removeEventListener('mousedown', h);
+  }, []);
+
+  const go = (resource) => { setOpen(false); setQ(''); setRes(null); nav(SEARCH_ROUTE[resource] || '/'); };
+
+  return (
+    <div ref={ref} className="relative hidden max-w-md flex-1 md:block">
+      <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+      <input className="input pl-9" placeholder="Search students, staff, leads, buses…"
+        value={q} onChange={(e) => { setQ(e.target.value); setOpen(true); }} onFocus={() => setOpen(true)} />
+      {open && res && q.length >= 2 && (
+        <div className="absolute z-30 mt-2 max-h-[70vh] w-full overflow-y-auto rounded-2xl border border-slate-100 bg-white p-2 shadow-xl">
+          {!res.groups.length ? (
+            <p className="px-3 py-4 text-sm text-slate-400">No matches for “{res.q}”.</p>
+          ) : res.groups.map((g) => (
+            <div key={g.resource} className="mb-1">
+              <p className="px-3 pb-1 pt-2 text-[10px] font-bold uppercase tracking-wide text-slate-400">{g.label} · {g.count}</p>
+              {g.items.map((it) => (
+                <button key={it.id} onClick={() => go(g.resource)} className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left hover:bg-slate-50">
+                  <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-50 text-xs font-bold text-brand-700">{it.title?.[0]?.toUpperCase() || '•'}</span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-sm font-medium text-slate-800">{it.title}</span>
+                    {it.subtitle && <span className="block truncate text-xs text-slate-400">{it.subtitle}</span>}
+                  </span>
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

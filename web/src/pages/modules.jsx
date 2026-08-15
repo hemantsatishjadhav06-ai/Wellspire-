@@ -13,7 +13,7 @@ const cmpColor = { active: 'emerald', draft: 'slate', paused: 'amber', ended: 's
 // ---- HR ----
 export function Staff() {
   return <ResourcePage title="Staff" subtitle="All employees — teaching and non-teaching."
-    endpoint="/staff" searchKey="full_name" addLabel="Add staff"
+    endpoint="/staff" exportKey="staff" searchKey="full_name" addLabel="Add staff"
     columns={[
       { key: 'full_name', label: 'Name', render: (r) => <span className="font-medium text-slate-800">{r.full_name}</span> },
       { key: 'role', label: 'Role' }, { key: 'department', label: 'Department' },
@@ -30,7 +30,7 @@ export function Staff() {
     ]} />;
 }
 export function Leave() {
-  return <ResourcePage title="Leave requests" subtitle="Staff leave approvals." endpoint="/leave" searchKey="staff_name" addLabel="New request"
+  return <ResourcePage title="Leave requests" subtitle="Staff leave approvals." endpoint="/leave" exportKey="leave" searchKey="staff_name" addLabel="New request"
     columns={[
       { key: 'staff_name', label: 'Staff', render: (r) => <span className="font-medium text-slate-800">{r.staff_name}</span> },
       { key: 'type', label: 'Type' },
@@ -47,7 +47,7 @@ export function Leave() {
 
 // ---- CRM / Marketing ----
 export function Leads() {
-  return <ResourcePage title="Admissions leads" subtitle="Enquiries pipeline (CRM)." endpoint="/leads" searchKey="parent_name" addLabel="Add lead"
+  return <ResourcePage title="Admissions leads" subtitle="Enquiries pipeline (CRM)." endpoint="/leads" exportKey="leads" searchKey="parent_name" addLabel="Add lead"
     columns={[
       { key: 'parent_name', label: 'Parent', render: (r) => <div><p className="font-medium text-slate-800">{r.parent_name}</p><p className="text-xs text-slate-400">{r.child_name} · {r.grade}</p></div> },
       { key: 'phone', label: 'Phone' }, { key: 'source', label: 'Source' },
@@ -63,7 +63,7 @@ export function Leads() {
     ]} />;
 }
 export function Campaigns() {
-  return <ResourcePage title="Marketing campaigns" subtitle="Reach and spend across channels." endpoint="/campaigns" searchKey="name" addLabel="New campaign"
+  return <ResourcePage title="Marketing campaigns" subtitle="Reach and spend across channels." endpoint="/campaigns" exportKey="campaigns" searchKey="name" addLabel="New campaign"
     columns={[
       { key: 'name', label: 'Campaign', render: (r) => <span className="font-medium text-slate-800">{r.name}</span> },
       { key: 'channel', label: 'Channel' }, { key: 'status', label: 'Status', render: (r) => pill(cmpColor)(r.status) },
@@ -82,7 +82,7 @@ export function Campaigns() {
 
 // ---- Hostel / Labs / Infirmary / Facilities / Appointments ----
 export function Hostel() {
-  return <ResourcePage title="Hostel rooms" subtitle="Blocks, rooms and occupancy." endpoint="/hostel/rooms" searchKey="room_no" addLabel="Add room"
+  return <ResourcePage title="Hostel rooms" subtitle="Blocks, rooms and occupancy." endpoint="/hostel/rooms" exportKey="hostel_rooms" searchKey="room_no" addLabel="Add room"
     columns={[
       { key: 'room_no', label: 'Room', render: (r) => <span className="font-medium text-slate-800">{r.room_no}</span> },
       { key: 'floor', label: 'Floor' }, { key: 'capacity', label: 'Capacity' }, { key: 'occupied', label: 'Occupied' },
@@ -94,7 +94,7 @@ export function Hostel() {
     ]} />;
 }
 export function Labs() {
-  return <ResourcePage title="Laboratories" subtitle="Chemistry, biology, physics, robotics and more." endpoint="/labs" searchKey="name" addLabel="Add lab"
+  return <ResourcePage title="Laboratories" subtitle="Chemistry, biology, physics, robotics and more." endpoint="/labs" exportKey="labs" searchKey="name" addLabel="Add lab"
     columns={[
       { key: 'name', label: 'Lab', render: (r) => <span className="font-medium text-slate-800">{r.name}</span> },
       { key: 'type', label: 'Type', render: (r) => <Badge color="brand">{r.type}</Badge> },
@@ -107,7 +107,7 @@ export function Labs() {
     ]} />;
 }
 export function Infirmary() {
-  return <ResourcePage title="Infirmary" subtitle="Clinic visits and student health." endpoint="/infirmary" addLabel="Log visit"
+  return <ResourcePage title="Infirmary" subtitle="Clinic visits and student health." endpoint="/infirmary" exportKey="infirmary" addLabel="Log visit"
     columns={[
       { key: 'visited_at', label: 'When', render: (r) => dateFmt(r.visited_at) },
       { key: 'symptoms', label: 'Symptoms', render: (r) => <span className="font-medium text-slate-800">{r.symptoms}</span> },
@@ -120,7 +120,7 @@ export function Infirmary() {
     ]} />;
 }
 export function Facilities() {
-  return <ResourcePage title="Facilities & cleaning" subtitle="Washroom & campus cleaning logs (housekeeping)." endpoint="/facilities" searchKey="location" addLabel="Log update"
+  return <ResourcePage title="Facilities & cleaning" subtitle="Washroom & campus cleaning logs (housekeeping)." endpoint="/facilities" exportKey="facilities" searchKey="location" addLabel="Log update"
     columns={[
       { key: 'facility', label: 'Facility', render: (r) => <Badge color="brand">{r.facility}</Badge> },
       { key: 'location', label: 'Location', render: (r) => <span className="font-medium text-slate-800">{r.location}</span> },
@@ -137,7 +137,7 @@ export function Facilities() {
     ]} />;
 }
 export function Appointments() {
-  return <ResourcePage title="Appointments" subtitle="Front-desk & principal meetings — with Google Meet." endpoint="/appointments" searchKey="requester_name" addLabel="New appointment"
+  return <ResourcePage title="Appointments" subtitle="Front-desk & principal meetings — with Google Meet." endpoint="/appointments" exportKey="appointments" searchKey="requester_name" addLabel="New appointment"
     columns={[
       { key: 'requester_name', label: 'Requester', render: (r) => <div><p className="font-medium text-slate-800">{r.requester_name}</p><p className="text-xs text-slate-400">{r.requester_email || r.requester_phone || ''}</p></div> },
       { key: 'with_role', label: 'With' }, { key: 'purpose', label: 'Purpose' },

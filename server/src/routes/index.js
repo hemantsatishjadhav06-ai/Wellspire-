@@ -9,6 +9,7 @@ import { requireAuth, requireStaff } from '../middleware/index.js';
 
 import auth from './auth.js';
 import platform from './platform.js';
+import data from './data.js';
 import students from './students.js';
 import timetable from './timetable.js';
 import fees from './fees.js';
@@ -111,5 +112,8 @@ api.use('/notifications', notifications);
 
 // --- platform modules (multi-tenant + operations + AI agents) -------------
 api.use(platform);
+
+// --- data connectivity: Excel export/import, search, Google Drive ---------
+api.use(data);
 
 export default api;

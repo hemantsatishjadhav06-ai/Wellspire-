@@ -22,6 +22,10 @@ const {
   SMTP_PASS = '',
   SMTP_FROM = 'Wellspire School <no-reply@wellspire.school>',
 
+  GOOGLE_SERVICE_ACCOUNT_JSON = '',
+  GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 = '',
+  GOOGLE_DRIVE_FOLDER_ID = '',
+
   ENABLE_AUTOMATIONS = 'true',
   SCHOOL_TIMEZONE = 'Asia/Kolkata',
   FEE_REMINDER_DAYS_BEFORE = '7',
@@ -59,6 +63,12 @@ export const config = {
     from: SMTP_FROM,
     configured: Boolean(SMTP_HOST && SMTP_USER && SMTP_PASS),
   },
+
+  googleDrive: (() => {
+    const json = GOOGLE_SERVICE_ACCOUNT_JSON ||
+      (GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 ? Buffer.from(GOOGLE_SERVICE_ACCOUNT_JSON_BASE64, 'base64').toString('utf8') : '');
+    return { serviceAccount: json, folderId: GOOGLE_DRIVE_FOLDER_ID, configured: Boolean(json && GOOGLE_DRIVE_FOLDER_ID) };
+  })(),
 
   automations: {
     enabled: ENABLE_AUTOMATIONS !== 'false',
