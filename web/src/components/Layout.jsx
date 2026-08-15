@@ -3,27 +3,55 @@ import { NavLink, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Users, GraduationCap, School, CalendarDays, ClipboardCheck,
   Wallet, BookOpen, Boxes, Bot, Zap, Settings, Menu, X, Bell, ChevronDown,
-  LogOut, Search, Repeat,
+  LogOut, Repeat, Bus, Building2, FlaskConical, HeartPulse, Megaphone, Briefcase,
+  UserPlus, CalendarClock, Trash2, Sparkles,
 } from 'lucide-react';
 import { Badge } from './ui.jsx';
 import { useAuth } from '../lib/auth.jsx';
 import { initials, colorFor } from '../lib/format.js';
 import api from '../lib/api.js';
 
-const NAV = [
-  { to: '/', label: 'Dashboard', icon: LayoutDashboard, roles: ['admin', 'principal', 'teacher', 'accountant', 'librarian', 'parent'] },
-  { to: '/students', label: 'Students', icon: Users, roles: ['admin', 'principal', 'teacher'] },
-  { to: '/teachers', label: 'Teachers', icon: GraduationCap, roles: ['admin', 'principal'] },
-  { to: '/classes', label: 'Classes', icon: School, roles: ['admin', 'principal', 'teacher'] },
-  { to: '/timetable', label: 'Timetable', icon: CalendarDays, roles: ['admin', 'principal', 'teacher', 'parent'] },
-  { to: '/attendance', label: 'Attendance', icon: ClipboardCheck, roles: ['admin', 'principal', 'teacher'] },
-  { to: '/fees', label: 'Fees', icon: Wallet, roles: ['admin', 'principal', 'accountant', 'parent'] },
-  { to: '/library', label: 'Library', icon: BookOpen, roles: ['admin', 'principal', 'librarian', 'teacher'] },
-  { to: '/inventory', label: 'Inventory', icon: Boxes, roles: ['admin', 'principal'] },
-  { to: '/automations', label: 'Automations', icon: Zap, roles: ['admin', 'principal'] },
-  { to: '/assistant', label: 'AI Copilot', icon: Bot, roles: ['admin', 'principal', 'teacher', 'accountant'] },
-  { to: '/settings', label: 'Settings', icon: Settings, roles: ['admin', 'principal'] },
+const NAV_GROUPS = [
+  { group: 'Overview', items: [
+    { to: '/', label: 'Dashboard', icon: LayoutDashboard, roles: ['admin', 'principal', 'teacher', 'accountant', 'librarian', 'parent'] },
+  ] },
+  { group: 'Academics', items: [
+    { to: '/students', label: 'Students', icon: Users, roles: ['admin', 'principal', 'teacher'] },
+    { to: '/teachers', label: 'Teachers', icon: GraduationCap, roles: ['admin', 'principal'] },
+    { to: '/classes', label: 'Classes', icon: School, roles: ['admin', 'principal', 'teacher'] },
+    { to: '/timetable', label: 'Timetable', icon: CalendarDays, roles: ['admin', 'principal', 'teacher', 'parent'] },
+    { to: '/attendance', label: 'Attendance', icon: ClipboardCheck, roles: ['admin', 'principal', 'teacher'] },
+  ] },
+  { group: 'Operations', items: [
+    { to: '/transport', label: 'Transport', icon: Bus, roles: ['admin', 'principal', 'parent'] },
+    { to: '/hostel', label: 'Hostel', icon: Building2, roles: ['admin', 'principal'] },
+    { to: '/labs', label: 'Labs', icon: FlaskConical, roles: ['admin', 'principal', 'teacher'] },
+    { to: '/infirmary', label: 'Infirmary', icon: HeartPulse, roles: ['admin', 'principal', 'teacher'] },
+    { to: '/library', label: 'Library', icon: BookOpen, roles: ['admin', 'principal', 'librarian', 'teacher'] },
+    { to: '/inventory', label: 'Inventory', icon: Boxes, roles: ['admin', 'principal'] },
+    { to: '/facilities', label: 'Facilities', icon: Trash2, roles: ['admin', 'principal'] },
+    { to: '/appointments', label: 'Appointments', icon: CalendarClock, roles: ['admin', 'principal', 'accountant'] },
+  ] },
+  { group: 'Finance & Growth', items: [
+    { to: '/fees', label: 'Fees', icon: Wallet, roles: ['admin', 'principal', 'accountant', 'parent'] },
+    { to: '/leads', label: 'Admissions (CRM)', icon: UserPlus, roles: ['admin', 'principal', 'accountant'] },
+    { to: '/marketing', label: 'Marketing', icon: Megaphone, roles: ['admin', 'principal'] },
+  ] },
+  { group: 'People', items: [
+    { to: '/hr', label: 'Staff (HR)', icon: Briefcase, roles: ['admin', 'principal'] },
+    { to: '/leave', label: 'Leave', icon: CalendarDays, roles: ['admin', 'principal'] },
+  ] },
+  { group: 'Intelligence', items: [
+    { to: '/assistant', label: 'AI Copilot', icon: Bot, roles: ['admin', 'principal', 'teacher', 'accountant'] },
+    { to: '/agents', label: 'AI Agents', icon: Sparkles, roles: ['admin', 'principal'] },
+    { to: '/automations', label: 'Automations', icon: Zap, roles: ['admin', 'principal'] },
+  ] },
+  { group: 'Platform', items: [
+    { to: '/platform', label: 'Schools', icon: Building2, roles: ['admin', 'principal'] },
+    { to: '/settings', label: 'Settings', icon: Settings, roles: ['admin', 'principal'] },
+  ] },
 ];
+const NAV = NAV_GROUPS.flatMap((g) => g.items);
 
 const ROLES = ['admin', 'principal', 'teacher', 'accountant', 'librarian', 'parent'];
 
@@ -31,7 +59,6 @@ export default function Layout({ children, mode }) {
   const [open, setOpen] = useState(false);
   const { role, profile, setRole, signOut } = useAuth();
   const location = useLocation();
-  const items = NAV.filter((n) => n.roles.includes(role));
   const current = NAV.find((n) => n.to === location.pathname);
 
   return (
@@ -46,15 +73,24 @@ export default function Layout({ children, mode }) {
           </div>
           <button className="ml-auto lg:hidden" onClick={() => setOpen(false)}><X className="h-5 w-5" /></button>
         </div>
-        <nav className="mt-2 space-y-1 px-3 pb-24">
-          {items.map(({ to, label, icon: Icon }) => (
-            <NavLink key={to} to={to} end={to === '/'} onClick={() => setOpen(false)}
-              className={({ isActive }) =>
-                `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
-                  isActive ? 'bg-brand-600 text-white shadow-soft' : 'hover:bg-slate-800 hover:text-white'}`}>
-              <Icon className="h-[18px] w-[18px]" /> {label}
-            </NavLink>
-          ))}
+        <nav className="mt-1 space-y-0.5 px-3 pb-24">
+          {NAV_GROUPS.map((g) => {
+            const its = g.items.filter((n) => n.roles.includes(role));
+            if (!its.length) return null;
+            return (
+              <div key={g.group} className="mb-1">
+                <p className="px-3 pb-1 pt-3 text-[10px] font-bold uppercase tracking-wider text-slate-500">{g.group}</p>
+                {its.map(({ to, label, icon: Icon }) => (
+                  <NavLink key={to} to={to} end={to === '/'} onClick={() => setOpen(false)}
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                        isActive ? 'bg-brand-600 text-white shadow-soft' : 'hover:bg-slate-800 hover:text-white'}`}>
+                    <Icon className="h-[17px] w-[17px]" /> {label}
+                  </NavLink>
+                ))}
+              </div>
+            );
+          })}
         </nav>
         <div className="absolute bottom-0 w-full border-t border-slate-800 p-4 text-[11px] text-slate-500">
           {mode === 'demo' ? '● Demo data · connect Supabase' : '● Live · Supabase'}

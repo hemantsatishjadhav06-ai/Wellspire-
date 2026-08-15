@@ -29,9 +29,12 @@ export function buildMockData() {
         timezone: 'Asia/Kolkata',
         currency: 'INR',
         settings: { tagline: 'Inspiring Lifelong Learning', motto: 'Educating the Mind. Body. Spirit.' },
+        board_type: 'cambridge', plan: 'enterprise', brand_color: '#233F88', website_enabled: true, is_active: true,
         created_at: iso(-400),
         updated_at: iso(-1),
       },
+      { id: 'sch-green', name: 'Greenfield Public School', code: 'GREENFIELD', address: 'Banjara Hills, Hyderabad', phone: '+91 40 4000 1000', email: 'office@greenfield.edu', timezone: 'Asia/Kolkata', currency: 'INR', settings: {}, board_type: 'state', plan: 'standard', brand_color: '#0e7490', website_enabled: true, is_active: true, created_at: iso(-300), updated_at: iso(-2) },
+      { id: 'sch-oak', name: 'Oakridge World Academy', code: 'OAKRIDGE', address: 'Gachibowli, Hyderabad', phone: '+91 40 4000 2000', email: 'info@oakridge.edu', timezone: 'Asia/Kolkata', currency: 'INR', settings: {}, board_type: 'ib', plan: 'enterprise', brand_color: '#7c3aed', website_enabled: true, is_active: true, created_at: iso(-250), updated_at: iso(-3) },
     ],
 
     academic_years: [
@@ -154,6 +157,118 @@ export function buildMockData() {
     ],
 
     audit_logs: [],
+
+    // ---------------------------------------------------------------------
+    // Platform modules (per-school SaaS)
+    // ---------------------------------------------------------------------
+    transport_vehicles: [
+      { id: 'veh-1', school_id: SCHOOL, code: 'BUS-01', registration_no: 'TS09 AB 1234', model: 'Tata Starbus', capacity: 40, driver_name: 'Ramesh Yadav', driver_phone: '+91 90000 11111', attendant_name: 'Sunita', active: true },
+      { id: 'veh-2', school_id: SCHOOL, code: 'BUS-02', registration_no: 'TS09 CD 5678', model: 'Force Traveller', capacity: 26, driver_name: 'Iqbal Khan', driver_phone: '+91 90000 22222', attendant_name: 'Radha', active: true },
+      { id: 'veh-3', school_id: SCHOOL, code: 'VAN-01', registration_no: 'TS09 EF 9012', model: 'Mahindra Supro', capacity: 14, driver_name: 'Naveen', driver_phone: '+91 90000 33333', attendant_name: 'Latha', active: true },
+    ],
+    transport_routes: [
+      { id: 'rt-1', school_id: SCHOOL, name: 'Route A · Kondapur–Campus', vehicle_id: 'veh-1', shift: 'morning', active: true },
+      { id: 'rt-2', school_id: SCHOOL, name: 'Route B · Miyapur–Campus', vehicle_id: 'veh-2', shift: 'morning', active: true },
+    ],
+    transport_stops: [
+      { id: 'st-1', school_id: SCHOOL, route_id: 'rt-1', name: 'Kondapur Circle', seq: 1, pickup_time: '07:10', lat: 17.4615, lng: 78.3637 },
+      { id: 'st-2', school_id: SCHOOL, route_id: 'rt-1', name: 'Botanical Garden', seq: 2, pickup_time: '07:20', lat: 17.4622, lng: 78.3712 },
+      { id: 'st-3', school_id: SCHOOL, route_id: 'rt-2', name: 'Miyapur X Road', seq: 1, pickup_time: '07:05', lat: 17.4967, lng: 78.3585 },
+    ],
+    transport_assignments: [
+      { student_id: 'stu-1', route_id: 'rt-1', stop_id: 'st-1' },
+      { student_id: 'stu-2', route_id: 'rt-1', stop_id: 'st-2' },
+      { student_id: 'stu-4', route_id: 'rt-2', stop_id: 'st-3' },
+    ],
+    transport_pings: [
+      { id: 'pg-1', school_id: SCHOOL, vehicle_id: 'veh-1', lat: 17.4700, lng: 78.3800, speed_kmph: 32, recorded_at: iso(0) },
+      { id: 'pg-2', school_id: SCHOOL, vehicle_id: 'veh-2', lat: 17.4890, lng: 78.3910, speed_kmph: 24, recorded_at: iso(0) },
+      { id: 'pg-3', school_id: SCHOOL, vehicle_id: 'veh-3', lat: 17.4550, lng: 78.3700, speed_kmph: 0, recorded_at: iso(0) },
+    ],
+
+    hostels: [
+      { id: 'hos-1', school_id: SCHOOL, name: 'Nalanda Boys Hostel', kind: 'boys', warden_name: 'Mr. Prakash', warden_phone: '+91 90000 44444', lat: 17.4602, lng: 78.3650 },
+      { id: 'hos-2', school_id: SCHOOL, name: 'Ganga Girls Hostel', kind: 'girls', warden_name: 'Ms. Kavitha', warden_phone: '+91 90000 55555', lat: 17.4608, lng: 78.3661 },
+    ],
+    hostel_rooms: [
+      { id: 'hr-1', school_id: SCHOOL, hostel_id: 'hos-1', room_no: 'A-101', floor: '1', capacity: 4, occupied: 3 },
+      { id: 'hr-2', school_id: SCHOOL, hostel_id: 'hos-1', room_no: 'A-102', floor: '1', capacity: 4, occupied: 4 },
+      { id: 'hr-3', school_id: SCHOOL, hostel_id: 'hos-2', room_no: 'B-201', floor: '2', capacity: 3, occupied: 2 },
+    ],
+    hostel_allocations: [
+      { id: 'ha-1', school_id: SCHOOL, student_id: 'stu-3', room_id: 'hr-1', allocated_on: date(-120) },
+      { id: 'ha-2', school_id: SCHOOL, student_id: 'stu-5', room_id: 'hr-1', allocated_on: date(-90) },
+    ],
+
+    labs: [
+      { id: 'lab-1', school_id: SCHOOL, name: 'Chemistry Lab', type: 'chemistry', room: 'S-101', in_charge: 'Dr. Anjali Verma', capacity: 30 },
+      { id: 'lab-2', school_id: SCHOOL, name: 'Biology Lab', type: 'biology', room: 'S-102', in_charge: 'Mr. Suresh', capacity: 30 },
+      { id: 'lab-3', school_id: SCHOOL, name: 'AI & Robotics Lab', type: 'robotics', room: 'T-201', in_charge: 'Ms. Sneha Rao', capacity: 24 },
+    ],
+    lab_equipment: [
+      { id: 'le-1', school_id: SCHOOL, lab_id: 'lab-1', name: 'Bunsen burner', quantity: 20, unit: 'unit', reorder_level: 10, status: 'ok' },
+      { id: 'le-2', school_id: SCHOOL, lab_id: 'lab-1', name: 'Litmus paper', quantity: 4, unit: 'box', reorder_level: 6, status: 'low' },
+      { id: 'le-3', school_id: SCHOOL, lab_id: 'lab-2', name: 'Microscope', quantity: 15, unit: 'unit', reorder_level: 8, status: 'ok' },
+      { id: 'le-4', school_id: SCHOOL, lab_id: 'lab-3', name: 'Arduino kit', quantity: 12, unit: 'kit', reorder_level: 10, status: 'ok' },
+    ],
+    lab_bookings: [
+      { id: 'lb-1', school_id: SCHOOL, lab_id: 'lab-1', class_id: 'cls-6a', teacher_id: 'tch-3', date: date(0), period: 4, purpose: 'Acids & bases practical' },
+    ],
+
+    medical_records: [
+      { id: 'mr-1', school_id: SCHOOL, student_id: 'stu-1', blood_group: 'O+', allergies: 'Peanuts', conditions: 'None', emergency_contact: '+91 99000 20001' },
+      { id: 'mr-2', school_id: SCHOOL, student_id: 'stu-4', blood_group: 'B+', allergies: 'None', conditions: 'Asthma (mild)', emergency_contact: '+91 99000 20004' },
+    ],
+    infirmary_visits: [
+      { id: 'iv-1', school_id: SCHOOL, student_id: 'stu-2', visited_at: iso(-1), symptoms: 'Headache', treatment: 'Rest + paracetamol', nurse: 'Sr. Mary', parent_notified: true },
+      { id: 'iv-2', school_id: SCHOOL, student_id: 'stu-5', visited_at: iso(0), symptoms: 'Minor cut', treatment: 'Dressing', nurse: 'Sr. Mary', parent_notified: false },
+    ],
+
+    appointments: [
+      { id: 'ap-1', school_id: SCHOOL, requester_name: 'Rohan Gupta', requester_email: 'rohan.gupta@example.com', with_role: 'principal', purpose: 'Discuss admission for sibling', scheduled_at: iso(1), status: 'scheduled', meet_link: 'https://meet.google.com/abc-defg-hij' },
+      { id: 'ap-2', school_id: SCHOOL, requester_name: 'Nisha Patel', requester_phone: '+91 99000 20004', with_role: 'accountant', purpose: 'Fee installment plan', status: 'requested' },
+    ],
+
+    departments: [
+      { id: 'dep-1', school_id: SCHOOL, name: 'Academics' }, { id: 'dep-2', school_id: SCHOOL, name: 'Administration' },
+      { id: 'dep-3', school_id: SCHOOL, name: 'Transport' }, { id: 'dep-4', school_id: SCHOOL, name: 'Support Staff' },
+    ],
+    staff: [
+      { id: 'stf-1', school_id: SCHOOL, full_name: 'Priya Sharma', role: 'Teacher', department: 'Academics', email: 'priya.sharma@wellspire.school', phone: '+91 98200 10001', employment_type: 'full_time', salary: 55000, date_of_join: '2019-06-10', active: true },
+      { id: 'stf-2', school_id: SCHOOL, full_name: 'Ramesh Yadav', role: 'Driver', department: 'Transport', phone: '+91 90000 11111', employment_type: 'full_time', salary: 22000, date_of_join: '2021-04-01', active: true },
+      { id: 'stf-3', school_id: SCHOOL, full_name: 'Lakshmi Devi', role: 'Housekeeping', department: 'Support Staff', phone: '+91 90000 66666', employment_type: 'full_time', salary: 15000, date_of_join: '2022-01-15', active: true },
+      { id: 'stf-4', school_id: SCHOOL, full_name: 'Sr. Mary Thomas', role: 'School Nurse', department: 'Administration', phone: '+91 90000 77777', employment_type: 'full_time', salary: 32000, date_of_join: '2020-07-01', active: true },
+    ],
+    leave_requests: [
+      { id: 'lr-1', school_id: SCHOOL, staff_name: 'Priya Sharma', type: 'casual', from_date: date(3), to_date: date(4), reason: 'Family function', status: 'pending' },
+      { id: 'lr-2', school_id: SCHOOL, staff_name: 'Ramesh Yadav', type: 'sick', from_date: date(-2), to_date: date(-1), reason: 'Fever', status: 'approved' },
+    ],
+
+    leads: [
+      { id: 'ld-1', school_id: SCHOOL, parent_name: 'Arjun Rao', child_name: 'Ira Rao', grade: 'Nursery', phone: '+91 98111 00001', email: 'arjun@example.com', source: 'website', stage: 'new', owner: 'Front Desk', next_action_at: iso(1), notes: 'Enquired via website form' },
+      { id: 'ld-2', school_id: SCHOOL, parent_name: 'Fatima Sheikh', child_name: 'Zoya', grade: 'Grade 1', phone: '+91 98111 00002', source: 'referral', stage: 'toured', owner: 'Admissions', notes: 'Visited campus, positive' },
+      { id: 'ld-3', school_id: SCHOOL, parent_name: 'David Miller', child_name: 'Ethan', grade: 'Grade 3', phone: '+91 98111 00003', source: 'instagram', stage: 'applied', owner: 'Admissions' },
+    ],
+    campaigns: [
+      { id: 'cmp-1', school_id: SCHOOL, name: 'Admissions 2026 — Facebook', channel: 'facebook', status: 'active', budget: 50000, leads_generated: 42, spend: 31000, starts_on: date(-20), ends_on: date(20) },
+      { id: 'cmp-2', school_id: SCHOOL, name: 'Open House — Instagram', channel: 'instagram', status: 'active', budget: 25000, leads_generated: 18, spend: 12000, starts_on: date(-10), ends_on: date(10) },
+    ],
+
+    facility_logs: [
+      { id: 'fl-1', school_id: SCHOOL, facility: 'washroom', location: 'Block A · Ground floor', status: 'clean', cleaned_by: 'Lakshmi Devi', photo_url: null, note: 'Restocked supplies', logged_at: iso(0) },
+      { id: 'fl-2', school_id: SCHOOL, facility: 'washroom', location: 'Block B · 1st floor', status: 'needs_attention', cleaned_by: 'Lakshmi Devi', photo_url: null, note: 'Reported low water', logged_at: iso(0) },
+      { id: 'fl-3', school_id: SCHOOL, facility: 'classroom', location: 'R-201', status: 'clean', cleaned_by: 'Ravi', photo_url: null, logged_at: iso(-1) },
+    ],
+
+    ai_agents: [
+      { id: 'ag-1', school_id: SCHOOL, key: 'marketing', name: 'Marketing Copywriter', category: 'Growth', description: 'Drafts admissions ads, posts and emails in the school voice.', enabled: true },
+      { id: 'ag-2', school_id: SCHOOL, key: 'sales', name: 'Admissions / Sales Assistant', category: 'Growth', description: 'Qualifies leads and suggests the next best action.', enabled: true },
+      { id: 'ag-3', school_id: SCHOOL, key: 'hr', name: 'HR Assistant', category: 'Operations', description: 'Drafts JDs, offer letters and policy answers.', enabled: true },
+      { id: 'ag-4', school_id: SCHOOL, key: 'teacher_fit', name: 'Teacher Compatibility', category: 'People', description: 'Matches teachers to classes by subject, load and fit.', enabled: true },
+      { id: 'ag-5', school_id: SCHOOL, key: 'timetable', name: 'Timetable Architect', category: 'Operations', description: 'Generates conflict-free timetables (see Timetable module).', enabled: true },
+      { id: 'ag-6', school_id: SCHOOL, key: 'principal', name: 'Principal Copilot', category: 'Leadership', description: 'Summarises the school day and flags what needs attention.', enabled: true },
+    ],
+    ai_runs: [],
   };
 }
 

@@ -8,6 +8,7 @@ import { crudRouter } from './crud.js';
 import { requireAuth, requireStaff } from '../middleware/index.js';
 
 import auth from './auth.js';
+import platform from './platform.js';
 import students from './students.js';
 import timetable from './timetable.js';
 import fees from './fees.js';
@@ -107,5 +108,8 @@ api.use('/dashboard', dashboard);
 api.use('/ai', ai);
 api.use('/automations', automations);
 api.use('/notifications', notifications);
+
+// --- platform modules (multi-tenant + operations + AI agents) -------------
+api.use(platform);
 
 export default api;
