@@ -4,6 +4,7 @@ import cron from 'node-cron';
 import config from '../config.js';
 import logger from '../lib/logger.js';
 import { runFeeReminders, runTeacherReminders } from '../services/reminders.js';
+import { runLeadFollowups } from '../services/leadIntake.js';
 
 export function startScheduler() {
   if (!config.automations.enabled) {
@@ -20,6 +21,11 @@ export function startScheduler() {
   register(config.automations.cronTeacherReminders, 'teacher-reminders', tz, async () => {
     const r = await runTeacherReminders({});
     logger.info(`[cron] teacher reminders → ${r.count} notified`);
+  });
+
+  register('0 10 * * 1-6', 'lead-followups', tz, async () => {
+    const r = await runLeadFollowups({});
+    logger.info(`[cron] lead follow-ups → ${r.count} reminder(s)`);
   });
 
   logger.info(`Scheduler started (tz=${tz}). Fees="${config.automations.cronFeeReminders}", Teachers="${config.automations.cronTeacherReminders}".`);

@@ -23,6 +23,8 @@ import Transport from './pages/Transport.jsx';
 import SuperAdmin from './pages/SuperAdmin.jsx';
 import AIAgents from './pages/AIAgents.jsx';
 import DataHub from './pages/DataHub.jsx';
+import GetStarted from './pages/GetStarted.jsx';
+import MobileApp from './pages/MobileApp.jsx';
 import { Staff, Leave, Leads, Campaigns, Hostel, Labs, Infirmary, Facilities, Appointments } from './pages/modules.jsx';
 
 export default function App() {
@@ -70,6 +72,8 @@ export default function App() {
         <Route path="/agents" element={<AIAgents />} />
         <Route path="/platform" element={<SuperAdmin />} />
         <Route path="/data" element={<DataHub />} />
+        <Route path="/get-started" element={<GetStarted />} />
+        <Route path="/mobile" element={<MobileApp />} />
         <Route path="/settings" element={<Settings mode={mode} />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
