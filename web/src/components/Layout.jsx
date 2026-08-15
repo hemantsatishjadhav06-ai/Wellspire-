@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, GraduationCap, School, CalendarDays, ClipboardCheck,
   Wallet, BookOpen, Boxes, Bot, Zap, Settings, Menu, X, Bell, ChevronDown,
   LogOut, Repeat, Bus, Building2, FlaskConical, HeartPulse, Megaphone, Briefcase,
-  UserPlus, CalendarClock, Trash2, Sparkles, Search, Database,
+  UserPlus, CalendarClock, Trash2, Sparkles, Search, Database, Rocket, Smartphone,
 } from 'lucide-react';
 import { Badge } from './ui.jsx';
 import { useAuth } from '../lib/auth.jsx';
@@ -14,6 +14,7 @@ import api from '../lib/api.js';
 const NAV_GROUPS = [
   { group: 'Overview', items: [
     { to: '/', label: 'Dashboard', icon: LayoutDashboard, roles: ['admin', 'principal', 'teacher', 'accountant', 'librarian', 'parent'] },
+    { to: '/get-started', label: 'Get started', icon: Rocket, roles: ['admin', 'principal'] },
   ] },
   { group: 'Academics', items: [
     { to: '/students', label: 'Students', icon: Users, roles: ['admin', 'principal', 'teacher'] },
@@ -49,6 +50,7 @@ const NAV_GROUPS = [
   { group: 'Platform', items: [
     { to: '/platform', label: 'Schools', icon: Building2, roles: ['admin', 'principal'] },
     { to: '/data', label: 'Data & Excel', icon: Database, roles: ['admin', 'principal'] },
+    { to: '/mobile', label: 'Mobile app', icon: Smartphone, roles: ['admin', 'principal', 'teacher', 'parent'] },
     { to: '/settings', label: 'Settings', icon: Settings, roles: ['admin', 'principal'] },
   ] },
 ];

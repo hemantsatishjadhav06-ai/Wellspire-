@@ -8,6 +8,7 @@ import { crudRouter } from './crud.js';
 import { requireAuth, requireStaff } from '../middleware/index.js';
 
 import auth from './auth.js';
+import publicRoutes from './public.js';
 import platform from './platform.js';
 import data from './data.js';
 import students from './students.js';
@@ -38,8 +39,9 @@ api.get('/status', (_req, res) => {
   });
 });
 
-// --- auth (unguarded) -----------------------------------------------------
+// --- auth + public (unguarded) --------------------------------------------
 api.use('/auth', auth);
+api.use(publicRoutes); // /public/* — website enquiry form + school card
 
 // --- access control -------------------------------------------------------
 // Everything below requires an authenticated caller (auto-passes in demo mode).
