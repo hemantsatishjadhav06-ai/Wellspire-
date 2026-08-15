@@ -19,6 +19,10 @@ import Inventory from './pages/Inventory.jsx';
 import Automations from './pages/Automations.jsx';
 import Assistant from './pages/Assistant.jsx';
 import Settings from './pages/Settings.jsx';
+import Transport from './pages/Transport.jsx';
+import SuperAdmin from './pages/SuperAdmin.jsx';
+import AIAgents from './pages/AIAgents.jsx';
+import { Staff, Leave, Leads, Campaigns, Hostel, Labs, Infirmary, Facilities, Appointments } from './pages/modules.jsx';
 
 export default function App() {
   const { ready, authenticated, role } = useAuth();
@@ -52,6 +56,18 @@ export default function App() {
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/automations" element={<Automations />} />
         <Route path="/assistant" element={<Assistant />} />
+        <Route path="/transport" element={<Transport />} />
+        <Route path="/hostel" element={<Hostel />} />
+        <Route path="/labs" element={<Labs />} />
+        <Route path="/infirmary" element={<Infirmary />} />
+        <Route path="/facilities" element={<Facilities />} />
+        <Route path="/appointments" element={<Appointments />} />
+        <Route path="/leads" element={<Leads />} />
+        <Route path="/marketing" element={<Campaigns />} />
+        <Route path="/hr" element={<Staff />} />
+        <Route path="/leave" element={<Leave />} />
+        <Route path="/agents" element={<AIAgents />} />
+        <Route path="/platform" element={<SuperAdmin />} />
         <Route path="/settings" element={<Settings mode={mode} />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

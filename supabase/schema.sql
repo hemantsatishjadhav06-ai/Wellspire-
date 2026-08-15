@@ -18,3 +18,4 @@
 \ir migrations/0003_rls_policies.sql
 \ir migrations/0004_seed.sql
 \ir migrations/0005_auth.sql
+\ir migrations/0006_platform.sql
