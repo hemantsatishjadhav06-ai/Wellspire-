@@ -1,0 +1,54 @@
+{
+  "packageId": "com.wellspire.school",
+  "host": "wellspire-sms.onrender.com",
+  "name": "Wellspire School",
+  "launcherName": "Wellspire",
+  "display": "standalone",
+  "orientation": "portrait",
+  "themeColor": "#233F88",
+  "themeColorDark": "#0c3a22",
+  "navigationColor": "#233F88",
+  "navigationColorDark": "#0c3a22",
+  "navigationDividerColor": "#233F88",
+  "navigationDividerColorDark": "#0c3a22",
+  "backgroundColor": "#ffffff",
+  "enableNotifications": true,
+  "startUrl": "/",
+  "iconUrl": "https://wellspire-sms.onrender.com/icon-512.png",
+  "maskableIconUrl": "https://wellspire-sms.onrender.com/icon-512.png",
+  "monochromeIconUrl": "https://wellspire-sms.onrender.com/icon-512.png",
+  "webManifestUrl": "https://wellspire-sms.onrender.com/manifest.webmanifest",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": { "enabled": false },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://wellspire-sms.onrender.com/",
+  "minSdkVersion": 21,
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "shortcuts": [
+    {
+      "name": "Fees",
+      "shortName": "Fees",
+      "url": "/fees",
+      "chosenIconUrl": "https://wellspire-sms.onrender.com/icon-192.png"
+    },
+    {
+      "name": "Attendance",
+      "shortName": "Attendance",
+      "url": "/attendance",
+      "chosenIconUrl": "https://wellspire-sms.onrender.com/icon-192.png"
+    },
+    {
+      "name": "Timetable",
+      "shortName": "Timetable",
+      "url": "/timetable",
+      "chosenIconUrl": "https://wellspire-sms.onrender.com/icon-192.png"
+    }
+  ],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestId": "https://wellspire-sms.onrender.com/",
+  "_comment": "Bubblewrap manifest. Run `bubblewrap build` in this folder to produce app-release-signed.aab for the Play Store. The signing key is created on first `bubblewrap init`/`build` — KEEP android.keystore and its passwords safe; Play requires the same key for every future update."
+}

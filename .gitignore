@@ -41,3 +41,14 @@ supabase/.temp
 coverage/
 .cache/
 .turbo/
+
+# Android / TWA build artifacts (keep signing keys OUT of git)
+mobile/twa/android.keystore
+mobile/twa/*.keystore
+mobile/twa/*.jks
+mobile/twa/app/
+mobile/twa/build/
+mobile/twa/.gradle/
+mobile/twa/*.aab
+mobile/twa/*.apk
+mobile/twa/node_modules/

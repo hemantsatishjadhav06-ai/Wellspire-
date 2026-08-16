@@ -34,6 +34,15 @@ export function createApp() {
   // The parent experience is now the live, backend-connected dashboard behind login.
   app.get(['/parent', '/parents'], (_req, res) => res.redirect('/'));
 
+  // Digital Asset Links — lets the Play Store (TWA) app verify this domain and
+  // open full-screen without a URL bar. Prefer the ANDROID_ASSETLINKS env
+  // (paste the JSON once you have the app's signing SHA-256), else the template.
+  app.get('/.well-known/assetlinks.json', (_req, res) => {
+    res.type('application/json');
+    if (process.env.ANDROID_ASSETLINKS) return res.send(process.env.ANDROID_ASSETLINKS);
+    return res.sendFile(path.join(publicDir, 'assetlinks.json'));
+  });
+
   // Static frontend (built by `npm run build`)
   if (fs.existsSync(webDist)) {
     app.use(express.static(webDist));
