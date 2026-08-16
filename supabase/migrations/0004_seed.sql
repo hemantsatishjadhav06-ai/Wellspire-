@@ -76,8 +76,8 @@ on conflict do nothing;
 insert into timetable_slots (school_id, class_id, subject_id, teacher_id, day_of_week, period, start_time, end_time, room)
 select '11111111-1111-1111-1111-111111111111',
        '55555555-5555-5555-5555-555555555001',
-       s.subject_id, s.teacher_id, s.dow, s.period,
-       s.start_time, s.end_time, 'R-201'
+       s.subject_id::uuid, s.teacher_id::uuid, s.dow, s.period,
+       s.start_time::time, s.end_time::time, 'R-201'
 from (values
   (1,1,'33333333-3333-3333-3333-333333333001','44444444-4444-4444-4444-444444444001','08:00','08:50'),
   (1,2,'33333333-3333-3333-3333-333333333002','44444444-4444-4444-4444-444444444002','08:50','09:40'),
