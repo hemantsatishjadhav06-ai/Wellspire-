@@ -21,6 +21,7 @@ import dashboard from './dashboard.js';
 import ai from './ai.js';
 import automations from './automations.js';
 import notifications from './notifications.js';
+import uploads from './uploads.js';
 
 const api = Router();
 
@@ -111,6 +112,7 @@ api.use('/dashboard', dashboard);
 api.use('/ai', ai);
 api.use('/automations', automations);
 api.use('/notifications', notifications);
+api.use(uploads); // /uploads + /uploads/status — Supabase Storage-backed file uploads
 
 // --- platform modules (multi-tenant + operations + AI agents) -------------
 api.use(platform);

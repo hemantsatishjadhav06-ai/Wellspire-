@@ -50,7 +50,7 @@ const NAV_GROUPS = [
   { group: 'Platform', items: [
     { to: '/platform', label: 'Schools', icon: Building2, roles: ['admin', 'principal'] },
     { to: '/data', label: 'Data & Excel', icon: Database, roles: ['admin', 'principal'] },
-    { to: '/mobile', label: 'Mobile app', icon: Smartphone, roles: ['admin', 'principal', 'teacher', 'parent'] },
+    { to: '/mobile', label: 'Mobile app', icon: Smartphone, roles: ['admin', 'principal', 'teacher', 'accountant', 'librarian', 'parent', 'student'] },
     { to: '/settings', label: 'Settings', icon: Settings, roles: ['admin', 'principal'] },
   ] },
 ];

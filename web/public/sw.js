@@ -1,10 +1,19 @@
 // Minimal, SPA-safe service worker for the Wellspire portal.
-// Strategy: network-first for navigations and /api requests (fall back to the
-// cached app shell when offline), cache-first for other same-origin GET assets.
-// Everything is wrapped defensively so a failure in the offline logic can never
-// break the running app.
+//
+// Strategy:
+//   • Navigations  → network-first, falling back to the cached app shell when
+//     offline. We only ever (re)cache the shell under the stable '/' key when
+//     the request is genuinely for the shell — never under an arbitrary route,
+//     so a visit to /students can't overwrite '/' with the wrong document.
+//   • Hashed build assets (/assets/*) → cache-first. Vite fingerprints these,
+//     so a given URL is immutable and safe to serve from cache forever.
+//   • Everything else (/api/*, /website/*, unhashed files) → passed straight
+//     to the network. These change without a URL change, so caching them risks
+//     serving stale content; we simply don't intercept them.
+//
+// Bump CACHE whenever the shell/precache logic changes so old caches are purged.
 
-const CACHE = 'wellspire-v1';
+const CACHE = 'wellspire-v2';
 const APP_SHELL = ['/', '/index.html'];
 
 self.addEventListener('install', (event) => {
@@ -53,24 +62,34 @@ self.addEventListener('fetch', (event) => {
 
   const isNavigation =
     request.mode === 'navigate' || request.destination === 'document';
-  const isApi = url.pathname.startsWith('/api');
 
-  if (isNavigation || isApi) {
-    event.respondWith(networkFirst(request, isNavigation));
-  } else {
-    event.respondWith(cacheFirst(request));
+  if (isNavigation) {
+    // Never cache the marketing site's HTML as the SPA shell.
+    if (url.pathname.startsWith('/website')) return;
+    event.respondWith(navigate(request, url));
+    return;
   }
+
+  // Immutable, content-hashed build assets: safe to cache-first.
+  if (url.pathname.startsWith('/assets/')) {
+    event.respondWith(cacheFirst(request));
+    return;
+  }
+
+  // Everything else (/api, /website assets, unhashed files) → network as-is.
 });
 
-// Network-first: try the network, fall back to cache. For navigations, fall
-// back to the cached app shell so the SPA still boots offline.
-async function networkFirst(request, isNavigation) {
+// Network-first for navigations. On success, refresh the cached shell ONLY when
+// the request is for the shell itself, so '/' is never clobbered by a deep link.
+// On failure, serve the cached shell so the SPA still boots offline.
+async function navigate(request, url) {
+  const isShellPath = url.pathname === '/' || url.pathname === '/index.html';
   try {
     const response = await fetch(request);
-    if (isNavigation && response && response.ok) {
+    if (isShellPath && response && response.ok) {
       try {
         const cache = await caches.open(CACHE);
-        cache.put('/', response.clone());
+        await cache.put('/', response.clone());
       } catch (err) {
         // Ignore cache write failures.
       }
@@ -79,12 +98,8 @@ async function networkFirst(request, isNavigation) {
   } catch (err) {
     try {
       const cache = await caches.open(CACHE);
-      if (isNavigation) {
-        const shell = (await cache.match('/')) || (await cache.match('/index.html'));
-        if (shell) return shell;
-      }
-      const cached = await cache.match(request);
-      if (cached) return cached;
+      const shell = (await cache.match('/')) || (await cache.match('/index.html'));
+      if (shell) return shell;
     } catch (cacheErr) {
       // Fall through to a generic offline response.
     }
