@@ -5,6 +5,7 @@ import {
   Wallet, BookOpen, Boxes, Bot, Zap, Settings, Menu, X, Bell, ChevronDown,
   LogOut, Repeat, Bus, Building2, FlaskConical, HeartPulse, Megaphone, Briefcase,
   UserPlus, CalendarClock, Trash2, Sparkles, Search, Database, Rocket, Smartphone,
+  BookMarked, ListChecks,
 } from 'lucide-react';
 import { Badge } from './ui.jsx';
 import { useAuth } from '../lib/auth.jsx';
@@ -22,6 +23,10 @@ const NAV_GROUPS = [
     { to: '/classes', label: 'Classes', icon: School, roles: ['admin', 'principal', 'teacher'] },
     { to: '/timetable', label: 'Timetable', icon: CalendarDays, roles: ['admin', 'principal', 'teacher', 'parent'] },
     { to: '/attendance', label: 'Attendance', icon: ClipboardCheck, roles: ['admin', 'principal', 'teacher'] },
+  ] },
+  { group: 'Learning', items: [
+    { to: '/learn', label: 'Learn (CBSE)', icon: BookMarked, roles: ['admin', 'principal', 'teacher', 'parent', 'student'] },
+    { to: '/tests', label: 'Tests', icon: ListChecks, roles: ['admin', 'principal', 'teacher', 'parent', 'student'] },
   ] },
   { group: 'Operations', items: [
     { to: '/transport', label: 'Transport', icon: Bus, roles: ['admin', 'principal', 'parent'] },

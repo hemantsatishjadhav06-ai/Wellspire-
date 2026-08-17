@@ -22,6 +22,7 @@ import ai from './ai.js';
 import automations from './automations.js';
 import notifications from './notifications.js';
 import uploads from './uploads.js';
+import learn from './learn.js';
 
 const api = Router();
 
@@ -48,7 +49,9 @@ api.use(publicRoutes); // /public/* — website enquiry form + school card
 // Everything below requires an authenticated caller (auto-passes in demo mode).
 // Mutations additionally require a staff role. Read-only + AI chat + the
 // notifications feed are exempt from the staff requirement.
-const STAFF_EXEMPT = ['/ai', '/notifications'];
+// Reads are open to any authenticated user; these paths also allow writes by
+// non-staff (students take quizzes; AI chat + notifications are user-scoped).
+const STAFF_EXEMPT = ['/ai', '/notifications', '/quizzes'];
 api.use((req, res, next) => {
   requireAuth(req, res, (err) => {
     if (err) return next(err);
@@ -113,6 +116,7 @@ api.use('/ai', ai);
 api.use('/automations', automations);
 api.use('/notifications', notifications);
 api.use(uploads); // /uploads + /uploads/status — Supabase Storage-backed file uploads
+api.use(learn);   // /syllabus, /study-materials, /quizzes/* — student learning + tests
 
 // --- platform modules (multi-tenant + operations + AI agents) -------------
 api.use(platform);
