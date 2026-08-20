@@ -50,7 +50,8 @@ export default function App() {
   return (
     <Layout mode={mode}>
       <Routes>
-        <Route path="/" element={role === 'parent' ? <ParentHome /> : <Dashboard />} />
+        {/* Role-accurate home: parents get the family view, students land on Learn. */}
+        <Route path="/" element={role === 'parent' ? <ParentHome /> : role === 'student' ? <Navigate to="/learn" replace /> : <Dashboard />} />
         <Route path="/students" element={<Students />} />
         <Route path="/teachers" element={<Teachers />} />
         <Route path="/classes" element={<Classes />} />

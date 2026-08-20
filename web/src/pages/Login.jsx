@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Brain, HeartPulse, Sparkles, Leaf, Cpu, Bus, ShieldCheck, ArrowRight, Loader2,
-  GraduationCap, Wallet, Users, ClipboardCheck, BookOpen,
+  GraduationCap, Wallet, Users, ClipboardCheck, BookOpen, BookMarked, Globe,
 } from 'lucide-react';
 import { useAuth } from '../lib/auth.jsx';
 
@@ -19,6 +19,7 @@ const TRUST = [
 
 const DEMO_ROLES = [
   { key: 'parent', label: 'Parent', desc: 'My child', icon: Users },
+  { key: 'student', label: 'Student', desc: 'Learn & tests', icon: BookMarked },
   { key: 'admin', label: 'Administrator', desc: 'Full access', icon: ShieldCheck },
   { key: 'principal', label: 'Principal', desc: 'Oversight', icon: GraduationCap },
   { key: 'teacher', label: 'Teacher', desc: 'Classes & attendance', icon: ClipboardCheck },
@@ -32,7 +33,18 @@ export default function Login() {
     <div className="grid min-h-screen lg:grid-cols-[1.05fr_1fr]">
       <Hero />
       <div className="flex items-center justify-center bg-slate-50 px-6 py-12">
-        <div className="w-full max-w-md">{mode === 'supabase' ? <SupabaseAuth /> : <DemoAuth />}</div>
+        <div className="w-full max-w-md">
+          {mode === 'supabase' ? <SupabaseAuth /> : <DemoAuth />}
+          <div className="mt-6 flex items-center justify-center gap-4 text-sm">
+            <a href="/website/" className="flex items-center gap-1.5 font-medium text-slate-400 transition hover:text-brand-700">
+              <Globe className="h-4 w-4" /> School website
+            </a>
+            <span className="text-slate-200">|</span>
+            <a href="/website/enquiry.html" className="flex items-center gap-1.5 font-medium text-slate-400 transition hover:text-brand-700">
+              <Sparkles className="h-4 w-4" /> Admissions enquiry
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import {
   Wallet, BookOpen, Boxes, Bot, Zap, Settings, Menu, X, Bell, ChevronDown,
   LogOut, Repeat, Bus, Building2, FlaskConical, HeartPulse, Megaphone, Briefcase,
   UserPlus, CalendarClock, Trash2, Sparkles, Search, Database, Rocket, Smartphone,
-  BookMarked, ListChecks,
+  BookMarked, ListChecks, Globe,
 } from 'lucide-react';
 import { Badge } from './ui.jsx';
 import { useAuth } from '../lib/auth.jsx';
@@ -61,7 +61,7 @@ const NAV_GROUPS = [
 ];
 const NAV = NAV_GROUPS.flatMap((g) => g.items);
 
-const ROLES = ['admin', 'principal', 'teacher', 'accountant', 'librarian', 'parent'];
+const ROLES = ['admin', 'principal', 'teacher', 'accountant', 'librarian', 'parent', 'student'];
 
 export default function Layout({ children, mode }) {
   const [open, setOpen] = useState(false);
@@ -100,7 +100,11 @@ export default function Layout({ children, mode }) {
             );
           })}
         </nav>
-        <div className="absolute bottom-0 w-full border-t border-slate-800 p-4 text-[11px] text-slate-500">
+        <div className="absolute bottom-0 w-full border-t border-slate-800 bg-slate-900 p-4 text-[11px] text-slate-500">
+          <a href="/website/" target="_blank" rel="noreferrer"
+            className="mb-2 flex items-center gap-2 rounded-lg font-semibold text-slate-300 transition hover:text-white">
+            <Globe className="h-3.5 w-3.5" /> Public website ↗
+          </a>
           {mode === 'demo' ? '● Demo data · connect Supabase' : '● Live · Supabase'}
         </div>
       </aside>
