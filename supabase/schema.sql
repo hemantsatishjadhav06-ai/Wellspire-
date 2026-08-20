@@ -19,3 +19,4 @@
 \ir migrations/0004_seed.sql
 \ir migrations/0005_auth.sql
 \ir migrations/0006_platform.sql
+\ir migrations/0007_learning.sql

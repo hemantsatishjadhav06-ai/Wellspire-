@@ -51,7 +51,7 @@ jobs:
           set -e
           if [ "$SEED" = "false" ]; then
             echo "→ Applying schema without seed data…"
-            for f in 0001_core_schema 0002_functions_triggers 0003_rls_policies 0005_auth; do
+            for f in 0001_core_schema 0002_functions_triggers 0003_rls_policies 0005_auth 0006_platform 0007_learning; do
               echo "  • $f"
               psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f "supabase/migrations/$f.sql"
             done

@@ -35,7 +35,8 @@ const enquirySchema = z.object({
   child_name: z.string().optional(),
   grade: z.string().optional(),
   phone: z.string().optional(),
-  email: z.string().email().optional(),
+  // Tolerate an empty string (some forms submit "") — treat it as omitted.
+  email: z.preprocess((v) => (v === '' ? undefined : v), z.string().email().optional()),
   source: z.string().optional(),
   message: z.string().optional(),
 });

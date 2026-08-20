@@ -9,6 +9,7 @@ export const useAuth = () => useContext(AuthCtx);
 const DEMO_NAMES = {
   admin: 'Anita Desai', principal: 'Dr. R. Kulkarni', teacher: 'Priya Sharma',
   accountant: 'Sanjay Mehta', librarian: 'Fatima Sheikh', parent: 'Rohan Gupta',
+  student: 'Aarav Gupta',
 };
 
 export function AuthProvider({ children }) {

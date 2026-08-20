@@ -25,6 +25,8 @@ import AIAgents from './pages/AIAgents.jsx';
 import DataHub from './pages/DataHub.jsx';
 import GetStarted from './pages/GetStarted.jsx';
 import MobileApp from './pages/MobileApp.jsx';
+import Learn from './pages/Learn.jsx';
+import Tests from './pages/Tests.jsx';
 import { Staff, Leave, Leads, Campaigns, Hostel, Labs, Infirmary, Facilities, Appointments } from './pages/modules.jsx';
 
 export default function App() {
@@ -48,7 +50,8 @@ export default function App() {
   return (
     <Layout mode={mode}>
       <Routes>
-        <Route path="/" element={role === 'parent' ? <ParentHome /> : <Dashboard />} />
+        {/* Role-accurate home: parents get the family view, students land on Learn. */}
+        <Route path="/" element={role === 'parent' ? <ParentHome /> : role === 'student' ? <Navigate to="/learn" replace /> : <Dashboard />} />
         <Route path="/students" element={<Students />} />
         <Route path="/teachers" element={<Teachers />} />
         <Route path="/classes" element={<Classes />} />
@@ -74,6 +77,8 @@ export default function App() {
         <Route path="/data" element={<DataHub />} />
         <Route path="/get-started" element={<GetStarted />} />
         <Route path="/mobile" element={<MobileApp />} />
+        <Route path="/learn" element={<Learn />} />
+        <Route path="/tests" element={<Tests />} />
         <Route path="/settings" element={<Settings mode={mode} />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

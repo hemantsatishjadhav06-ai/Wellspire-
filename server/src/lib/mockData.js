@@ -2,6 +2,7 @@
 // Mirrors supabase/migrations/0004_seed.sql so the deployed app looks alive
 // immediately. Writes during a session persist in these arrays until restart.
 import config from '../config.js';
+import { buildLearnData } from './learnData.js';
 
 const SCHOOL = config.defaultSchoolId;
 const day = 24 * 60 * 60 * 1000;
@@ -269,6 +270,11 @@ export function buildMockData() {
       { id: 'ag-6', school_id: SCHOOL, key: 'principal', name: 'Principal Copilot', category: 'Leadership', description: 'Summarises the school day and flags what needs attention.', enabled: true },
     ],
     ai_runs: [],
+
+    // ---------------------------------------------------------------------
+    // Student learning: CBSE syllabus, study material & interactive tests
+    // ---------------------------------------------------------------------
+    ...buildLearnData(),
   };
 }
 

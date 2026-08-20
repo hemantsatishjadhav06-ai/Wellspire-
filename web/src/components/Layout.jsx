@@ -5,6 +5,7 @@ import {
   Wallet, BookOpen, Boxes, Bot, Zap, Settings, Menu, X, Bell, ChevronDown,
   LogOut, Repeat, Bus, Building2, FlaskConical, HeartPulse, Megaphone, Briefcase,
   UserPlus, CalendarClock, Trash2, Sparkles, Search, Database, Rocket, Smartphone,
+  BookMarked, ListChecks, Globe,
 } from 'lucide-react';
 import { Badge } from './ui.jsx';
 import { useAuth } from '../lib/auth.jsx';
@@ -22,6 +23,10 @@ const NAV_GROUPS = [
     { to: '/classes', label: 'Classes', icon: School, roles: ['admin', 'principal', 'teacher'] },
     { to: '/timetable', label: 'Timetable', icon: CalendarDays, roles: ['admin', 'principal', 'teacher', 'parent'] },
     { to: '/attendance', label: 'Attendance', icon: ClipboardCheck, roles: ['admin', 'principal', 'teacher'] },
+  ] },
+  { group: 'Learning', items: [
+    { to: '/learn', label: 'Learn (CBSE)', icon: BookMarked, roles: ['admin', 'principal', 'teacher', 'parent', 'student'] },
+    { to: '/tests', label: 'Tests', icon: ListChecks, roles: ['admin', 'principal', 'teacher', 'parent', 'student'] },
   ] },
   { group: 'Operations', items: [
     { to: '/transport', label: 'Transport', icon: Bus, roles: ['admin', 'principal', 'parent'] },
@@ -50,13 +55,13 @@ const NAV_GROUPS = [
   { group: 'Platform', items: [
     { to: '/platform', label: 'Schools', icon: Building2, roles: ['admin', 'principal'] },
     { to: '/data', label: 'Data & Excel', icon: Database, roles: ['admin', 'principal'] },
-    { to: '/mobile', label: 'Mobile app', icon: Smartphone, roles: ['admin', 'principal', 'teacher', 'parent'] },
+    { to: '/mobile', label: 'Mobile app', icon: Smartphone, roles: ['admin', 'principal', 'teacher', 'accountant', 'librarian', 'parent', 'student'] },
     { to: '/settings', label: 'Settings', icon: Settings, roles: ['admin', 'principal'] },
   ] },
 ];
 const NAV = NAV_GROUPS.flatMap((g) => g.items);
 
-const ROLES = ['admin', 'principal', 'teacher', 'accountant', 'librarian', 'parent'];
+const ROLES = ['admin', 'principal', 'teacher', 'accountant', 'librarian', 'parent', 'student'];
 
 export default function Layout({ children, mode }) {
   const [open, setOpen] = useState(false);
@@ -95,7 +100,11 @@ export default function Layout({ children, mode }) {
             );
           })}
         </nav>
-        <div className="absolute bottom-0 w-full border-t border-slate-800 p-4 text-[11px] text-slate-500">
+        <div className="absolute bottom-0 w-full border-t border-slate-800 bg-slate-900 p-4 text-[11px] text-slate-500">
+          <a href="/website/" target="_blank" rel="noreferrer"
+            className="mb-2 flex items-center gap-2 rounded-lg font-semibold text-slate-300 transition hover:text-white">
+            <Globe className="h-3.5 w-3.5" /> Public website ↗
+          </a>
           {mode === 'demo' ? '● Demo data · connect Supabase' : '● Live · Supabase'}
         </div>
       </aside>
